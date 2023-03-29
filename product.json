@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "remera",
+    "description": "remera de algodon",
+    "price": 9500,
+    "thumbnail": "url img",
+    "code": "rem1",
+    "stock": 100
+  },
+  {
+    "id": 2,
+    "title": "medias",
+    "description": "medias soquetes",
+    "price": 800,
+    "thumbnail": "url img",
+    "code": "med1",
+    "stock": 100
+  },
+  {
+    "id": 3,
+    "title": "zapato",
+    "description": "zapato de cuero",
+    "price": 15000,
+    "thumbnail": "url img",
+    "code": "zap1",
+    "stock": 100
+  },
+  {
+    "id": 4,
+    "title": "pelota",
+    "description": "pelota de futbol",
+    "price": 1500,
+    "thumbnail": "url img",
+    "code": "pel1",
+    "stock": 100
+  },
+  {
+    "id": 5,
+    "title": "campera",
+    "description": "campera de cuero",
+    "price": 25000,
+    "thumbnail": "url img",
+    "code": "cam1",
+    "stock": 100
+  },
+  {
+    "id": 6,
+    "title": "gorra",
+    "description": "gorra de cuero",
+    "price": 2500,
+    "thumbnail": "url img",
+    "code": "gor1",
+    "stock": 100
+  },
+  {
+    "id": 7,
+    "title": "pantalon",
+    "description": "pantalon de cuero",
+    "price": 7300,
+    "thumbnail": "url img",
+    "code": "pan1",
+    "stock": 100
+  },
+  {
+    "id": 8,
+    "title": "camisa",
+    "description": "camisa de cuero",
+    "price": 9800,
+    "thumbnail": "url img",
+    "code": "cami1",
+    "stock": 100
+  },
+  {
+    "id": 9,
+    "title": "pantaloneta",
+    "description": "pantaloneta de cuero",
+    "price": 8700,
+    "thumbnail": "url img",
+    "code": "pan1",
+    "stock": 100
+  },
+  {
+    "id": 10,
+    "title": "pollera",
+    "description": "pollera de cuero",
+    "price": 5000,
+    "thumbnail": "url img",
+    "code": "pol1",
+    "stock": 100
+  }
+]
