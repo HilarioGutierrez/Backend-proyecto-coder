@@ -26,6 +26,7 @@ class productManager {
 
     async addProduct(product) {
         try {
+            //desestructuring
             const { title, description, price, category , status,  stock, code, thumbnail } = product;
             //Validate data
             if (!title || !description || !price || !code || !stock || !thumbnail) {

@@ -1,6 +1,6 @@
 [
   {
-    "id": "aade5ab5-cd20-40d9-8fc6-790d3ab4a781",
+    "id": "23e94953-09fb-436e-94d8-2d7c4efffbe3",
     "title": "medias",
     "description": "medias soquetes",
     "price": 100,
@@ -11,7 +11,7 @@
     "category": "ropa"
   },
   {
-    "id": "c55a70cf-ba81-4e14-8c17-c70ef12b5648",
+    "id": "e8a5899b-a6c7-4b40-a661-e38678c36ac6",
     "title": "remera",
     "description": "remera manga corta",
     "price": 300,
@@ -22,7 +22,7 @@
     "category": "ropa"
   },
   {
-    "id": "cfcb0e9d-18fc-4145-a614-d8a8d71aeb74",
+    "id": "450845ac-522d-4386-b088-75eb50d13d67",
     "title": "pantalon",
     "description": "pantalon jean",
     "price": 900,
@@ -33,7 +33,7 @@
     "category": "ropa"
   },
   {
-    "id": "f9c5fe72-424d-4d0c-b00c-838958087fdf",
+    "id": "5ac11d50-c2b3-49e3-8e26-f3448a6cc4c1",
     "title": "short",
     "description": "short futbol",
     "price": 400,
@@ -44,7 +44,7 @@
     "category": "ropa"
   },
   {
-    "id": "dc8f3268-44a0-4716-a0fb-91eff3aa968c",
+    "id": "829ece5e-aec4-4bf8-a26f-784f29086ed1",
     "title": "camisa",
     "description": "camisa manga larga",
     "price": 1200,
@@ -55,7 +55,7 @@
     "category": "ropa"
   },
   {
-    "id": "269b14a3-9086-484f-a7bc-7d4bb7618605",
+    "id": "66360ddb-aedf-426c-90f3-8790c3f8853f",
     "title": "campera",
     "description": "campera de cuero",
     "price": 12300,
@@ -66,7 +66,7 @@
     "category": "ropa"
   },
   {
-    "id": "3ddc792d-2dc7-4984-8636-92f0a230700e",
+    "id": "a9390673-9e67-4a79-a87d-1fd667700ed3",
     "title": "gorra",
     "description": "gorra tracker",
     "price": 200,
@@ -77,7 +77,7 @@
     "category": "ropa"
   },
   {
-    "id": "9506e167-3242-4f09-bfdd-311ce5171e55",
+    "id": "1512aa4c-aeca-471e-9201-4f2d3ae18593",
     "title": "remera",
     "description": "remera manga larga",
     "price": 500,
@@ -88,7 +88,7 @@
     "category": "ropa"
   },
   {
-    "id": "09382b55-72cd-4634-a707-5bfda5062347",
+    "id": "4ee5f03f-f452-4248-ab48-54b95789d1f3",
     "title": "musculosa",
     "description": "musculosa de algodon",
     "price": 850,
@@ -99,7 +99,7 @@
     "category": "ropa"
   },
   {
-    "id": "326089b8-3134-4d2c-bca9-641dffdb18f0",
+    "id": "54174234-272c-4388-8607-cbcfb944a729",
     "title": "camiseta de futbol",
     "description": "camiseta de River",
     "price": 23000,
