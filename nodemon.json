@@ -9,5 +9,5 @@
     ],
     "exec": "node src/app.js",
     "legacyWatch": true,
-    "ext": "js"
+    "ext": "js , handlebars"
 }

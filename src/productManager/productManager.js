@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
+import { v4 as uuidv4 } from 'uuid';
 
 class productManager {
 
-    autoId = 1;
     #products = [];
 
     constructor() {
@@ -24,21 +24,12 @@ class productManager {
         }
     }
 
-    async addProduct(title, description, price, thumbnail, code, stock) {
+    async addProduct(product) {
         try {
-            //objet product
-            let product = {
-                id: this.autoId++,
-                title: title,
-                description: description,
-                price: price,
-                thumbnail: thumbnail,
-                code: code,
-                stock: stock
-            }
+            const { title, description, price, category , status,  stock, code, thumbnail } = product;
             //Validate data
-            if (!title || !description || !price || !thumbnail || !code || !stock) {
-                throw new Error('Missing Data');
+            if (!title || !description || !price || !code || !stock || !thumbnail) {
+                throw new Error('Invalid data');
             }
             //push product to array
             this.#products.push(product);
@@ -117,16 +108,137 @@ const main = async () => {
     // console.log(getProduct);
     
     //Add Product
-    await newProduct.addProduct('remera','remera de algodon',9500,'url img','rem1',100)
-    await newProduct.addProduct('medias','medias soquetes',800,'url img','med1',100)
-    await newProduct.addProduct('zapato','zapato de cuero',15000,'url img','zap1',100)
-    await newProduct.addProduct('pelota','pelota de futbol',1500,'url img','pel1',100);
-    await newProduct.addProduct('campera','campera de cuero',25000,'url img','cam1',100);
-    await newProduct.addProduct('gorra','gorra de cuero',2500,'url img','gor1',100);
-    await newProduct.addProduct('pantalon','pantalon de cuero',7300,'url img','pan1',100);
-    await newProduct.addProduct('camisa','camisa de cuero',9800,'url img','cami1',100);
-    await newProduct.addProduct('pantaloneta','pantaloneta de cuero',8700,'url img','pan1',100);
-    await newProduct.addProduct('pollera','pollera de cuero',5000,'url img','pol1',100);
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'medias',
+        description: 'medias soquetes',
+        price: 100 ,
+        thumbnail: 'url img' ,
+        code: 'med1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'remera',
+        description: 'remera manga corta',
+        price: 300 ,
+        thumbnail: 'url img' ,
+        code: 'rem1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'pantalon',
+        description: 'pantalon jean',
+        price: 900 ,
+        thumbnail: 'url img' ,
+        code: 'pan1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'short',
+        description: 'short futbol',
+        price: 400 ,
+        thumbnail: 'url img' ,
+        code: 'sho1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'camisa',
+        description: 'camisa manga larga',
+        price: 1200 ,
+        thumbnail: 'url img' ,
+        code: 'cam1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'campera',
+        description: 'campera de cuero',
+        price: 12300 ,
+        thumbnail: 'url img' ,
+        code: 'cam2a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'gorra',
+        description: 'gorra tracker',
+        price: 200 ,
+        thumbnail: 'url img' ,
+        code: 'gor1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'remera',
+        description: 'remera manga larga',
+        price: 500 ,
+        thumbnail: 'url img' ,
+        code: 'rem1b' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'musculosa',
+        description: 'musculosa de algodon',
+        price: 850 ,
+        thumbnail: 'url img' ,
+        code: 'mus1a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+    await newProduct.addProduct(
+        //objet product
+    {
+        id: uuidv4() ,
+        title: 'camiseta de futbol',
+        description: 'camiseta de River',
+        price: 23000 ,
+        thumbnail: 'url img' ,
+        code: 'cam3a' ,
+        stock: 100,
+        status:true,
+        category:'ropa'
+    })
+
     
     
     // //Get product by id

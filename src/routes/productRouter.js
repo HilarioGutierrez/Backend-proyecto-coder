@@ -19,7 +19,7 @@ productRouter.get('/', async (req, res) => {
 });
 
 //Endpoint. URL Req.params to get the id of the product to show
-productRouter.get('/products/:pid', async (req, res) => {
+productRouter.get('/:pid', async (req, res) => {
     const products = await manager.getProducts();
     const param = +req.params.pid;
     //filtered id's products same as param.
@@ -32,5 +32,17 @@ if(filteredProducts.length === 0) {
 }
     res.send(filteredProducts);
 });
+
+productRouter.post('/', async (req, res) => {
+
+    const product = req.body;
+    const newProduct = await manager.addProduct(product);
+
+    if(!product.id || !product.title || !product.description || !product.price || !product.status || !product.stock || !product.category || !product.thumbnail) {
+        res.status(406).send({error: 'Sorry. Product not acceptable'});
+        return;}
+        res.status(201).send({message:'Create product', product: newProduct});
+    });
+
 
 export default productRouter;

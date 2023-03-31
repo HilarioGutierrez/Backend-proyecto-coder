@@ -1,0 +1,112 @@
+[
+  {
+    "id": "aade5ab5-cd20-40d9-8fc6-790d3ab4a781",
+    "title": "medias",
+    "description": "medias soquetes",
+    "price": 100,
+    "thumbnail": "url img",
+    "code": "med1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "c55a70cf-ba81-4e14-8c17-c70ef12b5648",
+    "title": "remera",
+    "description": "remera manga corta",
+    "price": 300,
+    "thumbnail": "url img",
+    "code": "rem1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "cfcb0e9d-18fc-4145-a614-d8a8d71aeb74",
+    "title": "pantalon",
+    "description": "pantalon jean",
+    "price": 900,
+    "thumbnail": "url img",
+    "code": "pan1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "f9c5fe72-424d-4d0c-b00c-838958087fdf",
+    "title": "short",
+    "description": "short futbol",
+    "price": 400,
+    "thumbnail": "url img",
+    "code": "sho1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "dc8f3268-44a0-4716-a0fb-91eff3aa968c",
+    "title": "camisa",
+    "description": "camisa manga larga",
+    "price": 1200,
+    "thumbnail": "url img",
+    "code": "cam1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "269b14a3-9086-484f-a7bc-7d4bb7618605",
+    "title": "campera",
+    "description": "campera de cuero",
+    "price": 12300,
+    "thumbnail": "url img",
+    "code": "cam2a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "3ddc792d-2dc7-4984-8636-92f0a230700e",
+    "title": "gorra",
+    "description": "gorra tracker",
+    "price": 200,
+    "thumbnail": "url img",
+    "code": "gor1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "9506e167-3242-4f09-bfdd-311ce5171e55",
+    "title": "remera",
+    "description": "remera manga larga",
+    "price": 500,
+    "thumbnail": "url img",
+    "code": "rem1b",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "09382b55-72cd-4634-a707-5bfda5062347",
+    "title": "musculosa",
+    "description": "musculosa de algodon",
+    "price": 850,
+    "thumbnail": "url img",
+    "code": "mus1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  },
+  {
+    "id": "326089b8-3134-4d2c-bca9-641dffdb18f0",
+    "title": "camiseta de futbol",
+    "description": "camiseta de River",
+    "price": 23000,
+    "thumbnail": "url img",
+    "code": "cam3a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa"
+  }
+]
