@@ -1,3 +1,4 @@
+import { log } from 'console';
 import fs from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -23,8 +24,7 @@ class productManager {
 
         }
     }
-
-    async addProduct(product) {
+    async createProduct(product) {
         try {
             //desestructuring
             const { title, description, price, category , status,  stock, code, thumbnail } = product;
@@ -36,6 +36,29 @@ class productManager {
             this.#products.push(product);
             //write file
             await fs.writeFile(this.path, JSON.stringify(this.#products, null, 2));
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    async addProduct(product) {
+        try {
+                    //Read file
+        const products = await fs.readFile(this.path, 'utf-8');
+        const productArray = JSON.parse(products);
+            //desestructuring
+            const { title, description, price, category , status,  stock, code, thumbnail } = product;
+            //Validate data
+            if (!title || !description || !price || !code || !stock || !thumbnail) {
+                throw new Error('Invalid data');
+            }
+            //push product to array
+            const newpushProduct = this.#products.push(product);
+            const newProduct = { ...newpushProduct, id: uuidv4(), product: product };
+            const newArray = [... productArray, newProduct];
+            //write file
+            await fs.writeFile(this.path, JSON.stringify(newArray, null, 2));
         }
         catch (error) {
             console.log(error);
@@ -109,7 +132,7 @@ const main = async () => {
     // console.log(getProduct);
     
     //Add Product
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -122,7 +145,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -135,7 +158,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -148,7 +171,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -161,7 +184,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -174,7 +197,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -187,7 +210,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -200,7 +223,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -213,7 +236,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,
@@ -226,7 +249,7 @@ const main = async () => {
         status:true,
         category:'ropa'
     })
-    await newProduct.addProduct(
+    await newProduct.createProduct(
         //objet product
     {
         id: uuidv4() ,

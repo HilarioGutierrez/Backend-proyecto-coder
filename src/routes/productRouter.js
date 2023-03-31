@@ -35,13 +35,18 @@ if(filteredProducts.length === 0) {
 
 productRouter.post('/', async (req, res) => {
 
-    const product = req.body;
-    const newProduct = await manager.addProduct(product);
+    const readFile = await manager.getProducts();
 
-    if(!product.id || !product.title || !product.description || !product.price || !product.status || !product.stock || !product.category || !product.thumbnail) {
+    const { id,title, description, price, category , status,  stock, code, thumbnail } = req.body
+    const product = req.body
+    const newProduct = await manager.addProduct(product);
+    
+    
+    if(!id || !title || !description || !price || !status || !stock || !category ||!code || !thumbnail) {
         res.status(406).send({error: 'Sorry. Product not acceptable'});
         return;}
-        res.status(201).send({message:'Create product', product: newProduct});
+        res.status(201).send({message:'Create product', product: product});
+
     });
 
 
