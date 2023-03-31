@@ -72,4 +72,19 @@ if(filteredProducts.length === 0) {
 
 });
 
+productRouter.delete('/:pid', async (req, res) => {
+    //read products 
+    const readProducts = await manager.getProducts();
+    const param = req.params.pid;
+    //find product by id for delete
+    const findProduct = readProducts.find(p => p.id === param);
+    if(!findProduct) {
+        res.status(404).send({error: 'Sorry. Product not found'});
+        return;
+    }
+    
+    await manager.deleteProduct(param);
+    res.status(202).send({message: 'Delete ok!', deletedProduct: findProduct});
+})
+
 export default productRouter;
