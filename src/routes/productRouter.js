@@ -9,19 +9,20 @@ const productRouter = Router();
 productRouter.get('/', async (req, res) => {
     const products = await manager.getProducts();
     let consult = +req.query.limit;
-
+    // if consult is not a number, send all products. Else send the number of products limited by consult
     if (!consult) {
         res.send(products);
         return;
     }
+    //Show the number of products limited by consult
     const filteredProducts = products.slice(0, consult);
     res.status(200).send(filteredProducts);
 });
 
-//Endpoint. URL Req.params to get the id of the product to show
+//GET products by ID from productManager
 productRouter.get('/:pid', async (req, res) => {
     const products = await manager.getProducts();
-    const param = +req.params.pid;
+    const param = req.params.pid;
     //filtered id's products same as param.
     const filteredProducts = products.filter(p => p.id === param);
 
@@ -33,21 +34,42 @@ if(filteredProducts.length === 0) {
     res.send(filteredProducts);
 });
 
+//PUT products at productManager
 productRouter.post('/', async (req, res) => {
-
-    const readFile = await manager.getProducts();
-
-    const { id,title, description, price, category , status,  stock, code, thumbnail } = req.body
+    //destructuring
+    const { title, description, price, category , status,  stock, code, thumbnail } = req.body
     const product = req.body
-    const newProduct = await manager.addProduct(product);
-    
-    
-    if(!id || !title || !description || !price || !status || !stock || !category ||!code || !thumbnail) {
+    //add product
+    await manager.addProduct(product);
+    //if any of the properties is empty, send error message. Else send the product
+    if( !title || !description || !price || !status || !stock || !category ||!code || !thumbnail) {
         res.status(406).send({error: 'Sorry. Product not acceptable'});
-        return;}
+        return;
+    }
         res.status(201).send({message:'Create product', product: product});
-
     });
 
+//PUT products at productManager. Req.params.pid is the id of the product to update
+productRouter.put('/:pid', async (req, res) => {
+    //read products
+    const products = await manager.getProducts();
+    //param is the id of the product to update
+    const param = req.params.pid;
+    //product is the body of the request. The new product to update
+    const product = req.body
+    
+    //filtered id's products same as param.
+    const filteredProducts = products.filter(p => p.id === param);
+
+    //if FilteredProducts is empty, send error message. Else send the product
+if(filteredProducts.length === 0) {
+        res.status(404).send({error: 'Sorry. Product not found'});
+        return;
+}
+    //update product
+    const updateProduct = await manager.updateProduct(param, product);
+    res.status(202).send({message: 'Update ok!', updatedProduct: updateProduct});
+
+});
 
 export default productRouter;

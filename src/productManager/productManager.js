@@ -48,14 +48,14 @@ class productManager {
         const products = await fs.readFile(this.path, 'utf-8');
         const productArray = JSON.parse(products);
             //desestructuring
-            const { title, description, price, category , status,  stock, code, thumbnail } = product;
+            const {id, title, description, price, category , status,  stock, code, thumbnail } = product;
             //Validate data
-            if (!title || !description || !price || !code || !stock || !thumbnail) {
+            if (!id, !title || !description || !price || !code || !stock || !thumbnail) {
                 throw new Error('Invalid data');
             }
             //push product to array
-            const newpushProduct = this.#products.push(product);
-            const newProduct = { ...newpushProduct, id: uuidv4(), product: product };
+            this.#products.push(product);
+            const newProduct = {id: uuidv4(), ...  product };
             const newArray = [... productArray, newProduct];
             //write file
             await fs.writeFile(this.path, JSON.stringify(newArray, null, 2));
