@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "products": [
+      {
+        "id": 3,
+        "title": "Camisa Rinbow",
+        "description": "Camisa manga larga a rayas",
+        "price": 8700,
+        "thumbnail": "URL",
+        "code": "cami1a",
+        "stock": 100,
+        "status": true,
+        "category": "ropa-arriba"
+      },
+      {
+        "id": 5,
+        "title": "Gorra",
+        "description": "Gorra trucker",
+        "price": 7500,
+        "thumbnail": "URL",
+        "code": "gorr1a",
+        "stock": 100,
+        "status": true,
+        "category": "ropa-cabeza"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "products": [
+      {
+        "id": 1,
+        "title": "Remera Overside",
+        "description": "Remera de algodon overside",
+        "price": 9999,
+        "thumbnail": "URL",
+        "code": "remov1a",
+        "stock": 99,
+        "status": true,
+        "category": "ropa-arriba"
+      },
+      {
+        "id": 6,
+        "title": "Medias 3/4",
+        "description": "Medias 3/4 de algodon",
+        "price": 2500,
+        "thumbnail": "URL",
+        "code": "med1a",
+        "stock": 100,
+        "status": true,
+        "category": "ropa-pies"
+      }
+    ]
+  }
+]

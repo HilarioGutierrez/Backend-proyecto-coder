@@ -1,11 +1,11 @@
 import { Router } from "express";
-import productManager from "../productManager/productManager.js"
+import productManager from "../manager/productManager.js"
 
 //new instanse of productManager
 const manager = new productManager();
 const productRouter = Router();
 
-//Endpoint. Get products from productManager. Req.query limited the number of products to show
+//GET products from productManager. Req.query limited the number of products to show
 productRouter.get('/', async (req, res) => {
     const products = await manager.getProducts();
     let consult = +req.query.limit;
@@ -22,7 +22,7 @@ productRouter.get('/', async (req, res) => {
 //GET products by ID from productManager
 productRouter.get('/:pid', async (req, res) => {
     const products = await manager.getProducts();
-    const param = req.params.pid;
+    const param = +req.params.pid;
     //filtered id's products same as param.
     const filteredProducts = products.filter(p => p.id === param);
 
@@ -54,7 +54,7 @@ productRouter.put('/:pid', async (req, res) => {
     //read products
     const products = await manager.getProducts();
     //param is the id of the product to update
-    const param = req.params.pid;
+    const param = +req.params.pid;
     //product is the body of the request. The new product to update
     const product = req.body
     
@@ -72,10 +72,11 @@ if(filteredProducts.length === 0) {
 
 });
 
+//DELETE products at productManager. Req.params.pid is the id of the product to delete
 productRouter.delete('/:pid', async (req, res) => {
     //read products 
     const readProducts = await manager.getProducts();
-    const param = req.params.pid;
+    const param = +req.params.pid;
     //find product by id for delete
     const findProduct = readProducts.find(p => p.id === param);
     if(!findProduct) {
