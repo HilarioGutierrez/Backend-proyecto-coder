@@ -43,7 +43,11 @@ class cartManager {
             //finde product by id
             const searchCart = await cartsArray.find(cart => cart.id === cid);
             if (!searchCart) {
+            try {
                 throw new Error(`Not found cart with id: ${cid}`);
+                } catch (error) {
+                console.log(error);
+            }
             }
             const pathProducts = './src/db/product.json';
             const products = await fs.readFile(pathProducts, 'utf-8');
@@ -52,7 +56,11 @@ class cartManager {
             const searchProduct = await productsArray.find(product => product.id === pid);
 
             if (!searchProduct) {
-                throw new Error(`Not found product with id: ${pid}`);
+                try {
+                    throw new Error(`Not found product with id: ${pid}`);
+                } catch (error) {
+                    console.log(error);
+                }
             }
             
             searchCart.products.push(searchProduct);
