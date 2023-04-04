@@ -8,7 +8,8 @@ const cartRouter = Router();
 
 cartRouter.post('/',async (req,res)=>{
     const cart = await manager.createCart();
-    res.status(201).send(cart);
+        
+    res.status(201).send({message: 'Cart created'});
 });
 
 cartRouter.get('/:cid', async (req, res) => {
