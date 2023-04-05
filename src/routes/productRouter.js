@@ -36,17 +36,17 @@ if(filteredProducts.length === 0) {
 
 //PUT products at productManager
 productRouter.post('/', async (req, res) => {
-    //destructuring
-    const { title, description, price, category , status,  stock, code, thumbnail } = req.body
     const product = req.body
     //add product
-    await manager.addProduct(product);
-    //if any of the properties is empty, send error message. Else send the product
-    if( !title || !description || !price || !status || !stock || !category ||!code || !thumbnail) {
-        res.status(406).send({error: 'Sorry. Product not acceptable'});
+    const newProduct= await manager.addProduct(product);
+    
+    //if any of the properties is empty, send error message. Else show status 201 and the product created
+    if(!newProduct) {
+        res.status(409).send({error: 'Conflict'});
         return;
     }
         res.status(201).send({message:'Create product', product: product});
+        
     });
 
 //PUT products at productManager. Req.params.pid is the id of the product to update

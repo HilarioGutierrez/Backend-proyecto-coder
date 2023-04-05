@@ -97,5 +97,16 @@
     "stock": 100,
     "status": true,
     "category": "ropa-arriba"
+  },
+  {
+    "id": 10,
+    "title": "Bermuda",
+    "description": "Bermuda de jean",
+    "price": 8100,
+    "thumbnail": "URL",
+    "code": "ber1a",
+    "stock": 100,
+    "status": true,
+    "category": "ropa-abajo"
   }
 ]

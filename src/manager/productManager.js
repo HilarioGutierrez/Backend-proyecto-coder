@@ -1,5 +1,4 @@
 import fs from 'fs/promises';
-import { v4 as uuidv4 } from 'uuid';
 
 class productManager {
     #autoId = 1;
@@ -29,23 +28,30 @@ class productManager {
             //Read file
         const products = await fs.readFile(this.path, 'utf-8');
         const productArray = JSON.parse(products);
+
+        if(productArray.length > 0) {
+            const lastProduct = productArray[productArray.length - 1];
+            this.#autoId = lastProduct.id + 1;
+        }
             //desestructuring
             const {id, title, description, price, category , status,  stock, code, thumbnail } = product;
             //Validate data
-            if (!id || !title || !description || !price || !code || !category|| !status || !stock || !thumbnail) {
+            if ( !title || !description || !price || !code || !category|| !status || !stock || !thumbnail) {
                 throw new Error('Invalid data');
             }
             //push product to array
             this.#products.push(product);
+            
             const newProduct = {id: this.#autoId++, ...  product };
             const newArray = [... productArray, newProduct];
 
-            const exist = await productArray.find(product => product.code === code && product.id === id);
+            const exist = await productArray.find(product => product.code === code || product.id === id);
             if (!exist) {
                 //write file
                 await fs.writeFile(this.path, JSON.stringify(newArray, null, 2));
+            }else{
+                throw new Error(`Product with code: ${product.code} already exist`);
             }
-            throw new Error(`Product with id: ${id} already exist`);
         }
         catch (error) {
             console.log(error);

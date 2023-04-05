@@ -29,9 +29,10 @@ cartRouter.post('/:cid/products/:pid', async (req, res) => {
         const pid = +req.params.pid;
 
         const cart = await manager.addProduct(cid, pid);
+        
         res.status(201).send(cart);
     } catch (error) {
-        
+        throw new Error(error);
     }
 });
 export default cartRouter;
