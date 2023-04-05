@@ -108,5 +108,16 @@
     "stock": 100,
     "status": true,
     "category": "ropa-abajo"
+  },
+  {
+    "id": 11,
+    "title": "HILARIO",
+    "description": "Bermuda de jean",
+    "price": 8100,
+    "thumbnail": "URL",
+    "code": "3",
+    "stock": 100,
+    "status": true,
+    "category": "ropa-abajo"
   }
 ]

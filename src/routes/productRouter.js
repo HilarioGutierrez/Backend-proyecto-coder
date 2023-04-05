@@ -36,16 +36,14 @@ if(filteredProducts.length === 0) {
 
 //PUT products at productManager
 productRouter.post('/', async (req, res) => {
-    const product = req.body
+    const product = req.body;
     //add product
-    const newProduct= await manager.addProduct(product);
-    
+    const newProduct = await manager.addProduct(product);
     //if any of the properties is empty, send error message. Else show status 201 and the product created
     if(!newProduct) {
-        res.status(409).send({error: 'Conflict'});
-        return;
+        return res.status(409).send({error: 'Conflict'});
     }
-        res.status(201).send({message:'Create product', product: product});
+        return res.status(201).send({message:'Create product', product: product});
         
     });
 

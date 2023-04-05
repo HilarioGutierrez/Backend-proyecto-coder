@@ -49,6 +49,7 @@ class productManager {
             if (!exist) {
                 //write file
                 await fs.writeFile(this.path, JSON.stringify(newArray, null, 2));
+                return newProduct;
             }else{
                 throw new Error(`Product with code: ${product.code} already exist`);
             }
@@ -56,6 +57,7 @@ class productManager {
         catch (error) {
             console.log(error);
         }
+        
     }
 
     async getProductById(id) {
