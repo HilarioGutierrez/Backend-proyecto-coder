@@ -73,8 +73,8 @@ class cartManager {
     
         // Write updated cart to file
         await fs.writeFile(this.#path, JSON.stringify(cartsJson, null, 2));
-    
-        console.log(`Product with id ${pid} added to cart with id ${cid}`);
+
+        return `Product with id ${pid} added to cart with id ${cid}`;
         } catch (error) {
         console.log(error);
         }

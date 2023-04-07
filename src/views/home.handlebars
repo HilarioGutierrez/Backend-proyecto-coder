@@ -1,0 +1,23 @@
+<div class="bg-dark">
+    <h1 class="container p-2 text-light">Lista de Productos:</h1>
+    <ul class="m-5 container d-flex flex-row flex-wrap justify-content-center">
+        {{#if products}}
+            {{#each products}}
+                <div class="card container m-3 fs-4 col-3 bg-secondary">
+                        <li class="container fw-bolder p-2 text-center text-light" style="list-style-type: none">
+                            {{this.title}}
+                        </li>
+                        <li class="container fs-6 p-1 fst-italic text-center text-light" style="list-style-type: none">
+                            {{this.description}}
+                        </li>
+                        <li class="container p-3 fs-5 text-center fw-bold text-light" style="list-style-type: none">
+                            ${{this.price}}
+                        </li>
+                </div>
+            {{/each}}
+        {{else}}
+            <li>No hay productos</li>
+        {{/if}}
+    </ul>
+</div>
+
