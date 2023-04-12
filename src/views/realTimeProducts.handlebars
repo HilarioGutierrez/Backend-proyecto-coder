@@ -14,16 +14,16 @@
             <label for="description" class="p-2">Description:</label>
             <input type="text" id="description" name="description">
             <label for="price" class="p-2">Price:</label>
-            <input type="text" id="price" name="price">
+            <input type="number" id="price" name="price">
             <label for="thumbnail" class="p-2">thumbnail:</label>
             <input type="text" id="thumbnail" name="thumbnail">
             <label for="code" class="p-2">Code:</label>
             <input type="text" id="code" name="code">
             <label for="stock" class="p-2">Stock:</label>
-            <input type="text" id="stock" name="stock">
+            <input type="number" id="stock" name="stock">
             <label for="category" class="p-2">Category:</label>
             <input type="text" id="category" name="category">
-            <button type="submit" onclick="addpProduct()" class="m-2">Add product</button>
+            <button type="submit" class="m-2">Add product</button>
         </form>
     </div>
     <ul id="products" class="container d-flex flex-row flex-wrap justify-content-center">
@@ -53,34 +53,54 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
 <script>
     const socket = io();
-    
+
     const formTitle = document.getElementById('title');
-        const formPrice = document.getElementById('price');
-        const formThumbnail = document.getElementById('thumbnail');
-        const formCode = document.getElementById('code');
-        const formStock = document.getElementById('stock');
-        const formDescription = document.getElementById('description');
-        const formcategory = document.getElementById('category');
+    const formPrice = document.getElementById('price');
+    const formThumbnail = document.getElementById('thumbnail');
+    const formCode = document.getElementById('code');
+    const formStock = document.getElementById('stock');
+    const formDescription = document.getElementById('description');
+    const formcategory = document.getElementById('category');
 
-        const product=[];
-        const addProduct = ()=> {
-            let newProduct = {
-                title: formTitle.value,
-                description: formDescription.value,
-                price: formPrice.value,
-                thumbnail: formThumbnail.value,
-                code: formCode.value,
-                stock: formStock.value,
-                status:true,
-                category:formcategory.value
-            }
-            product.push(newProduct);
-            socket.emit('newProduct', newProduct);
-            socket.on('listProducts', (data) => {
-                console.log(data);
-            })
+    const formAdd = document.getElementById('formAdd');
 
+    formAdd.addEventListener('submit', (e) => {
+        e.preventDefault();
+        addProduct();
+    })
 
+    const formDelete = document.getElementById('formDelete');
+    formDelete.addEventListener('submit', (e) => {
+        e.preventDefault();
+        deleteProduct();
+    })
 
+    const addProduct = () => {
+        
+        let newProduct = {
+            title: formTitle.value,
+            description: formDescription.value,
+            price: parseInt(formPrice.value),
+            thumbnail: formThumbnail.value,
+            code: formCode.value,
+            stock: parseInt(formStock.value),
+            status: true,
+            category: formcategory.value
         }
+
+        socket.emit('new-product', newProduct);
+        socket.on('listProducts', (data) => {
+            return `
+            ${data.title}
+            ${data.description}
+            `
+
+        })
+    }
+
+    const deleteProduct = () => {
+        let id = document.getElementById('number').value;
+        const idDelete = parseInt(id)
+        socket.emit('delete-product', idDelete);
+    }
 </script>

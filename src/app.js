@@ -31,21 +31,22 @@ const arrayProducts = new productManager();
 const products = arrayProducts.getProducts();
 
 //Socket.io
-const socket = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
-socket.on('connection', (socket) => {
+socketServer.on('connection', (socket) => {
         console.log(`New client connected. ID: ${socket.id}`);
-        socket.emit('listProducts', products);
 
-    socket.on('newProduct', (data) => {
-        products.push(data);
-        socket.emit('listProducts', products.map((product) => product));
-    });
-    socket.on('deleteProduct', (data) => {
-        products = products.filter((products) => products.name !== data.name);
+        socket.on('new-product', (data) => {
+            console.log(data);
+            arrayProducts.addProduct(data);
+            socketServer.emit('listProducts', 
+                arrayProducts.getProducts())
+        })
 
-        socket.emit('listProducts', products);
-    });
+        socket.on('delete-product', (data) => {
+            console.log(data);
+            arrayProducts.deleteProduct(data);
+        })
 });
 
-export { socket };
+export { socketServer };
