@@ -1,0 +1,86 @@
+<h1 class="container p-4 text-center">Real Time Products</h1>
+<div class="container d-flex flex-comun ">
+    <div class="container d-flex flex-column col-3">
+        <h4 class="d-flex col-6">Delete product:</h4>
+        <form id="formDelete" action="" class="d-flex flex-column col-6">
+            <label for="texto" class="p-2">Delete by ID:</label>
+            <input type="number" id="number" name="number">
+            <button type="submit" onclick="deleteProduct()" id="deleteButton" class="m-2">delete</button>
+        </form>
+        <h4 class="d-flex col-6">Add Product:</h4>
+        <form id="formAdd" action="" class=" d-flex flex-column col-6">
+            <label for="title" class="p-2">Title:</label>
+            <input type="text" id="title" name="title">
+            <label for="description" class="p-2">Description:</label>
+            <input type="text" id="description" name="description">
+            <label for="price" class="p-2">Price:</label>
+            <input type="text" id="price" name="price">
+            <label for="thumbnail" class="p-2">thumbnail:</label>
+            <input type="text" id="thumbnail" name="thumbnail">
+            <label for="code" class="p-2">Code:</label>
+            <input type="text" id="code" name="code">
+            <label for="stock" class="p-2">Stock:</label>
+            <input type="text" id="stock" name="stock">
+            <label for="category" class="p-2">Category:</label>
+            <input type="text" id="category" name="category">
+            <button type="submit" onclick="addpProduct()" class="m-2">Add product</button>
+        </form>
+    </div>
+    <ul id="products" class="container d-flex flex-row flex-wrap justify-content-center">
+        {{#if products}}
+        {{#each products}}
+        <div id="products" class="card container m-1 fs-4 col-3 bg-secondary">
+            <li class="container fs-6 p-2 text-center text-light" style="list-style-type: none">
+                {{this.id}}
+            </li>
+            <li class="container fw-bolder p-2 text-center text-light" style="list-style-type: none">
+                {{this.title}}
+            </li>
+            <li class="container fs-6 p-1 fst-italic text-center text-light" style="list-style-type: none">
+                {{this.description}}
+            </li>
+            <li class="container p-3 fs-5 text-center fw-bold text-light" style="list-style-type: none">
+                ${{this.price}}
+            </li>
+        </div>
+        {{/each}}
+        {{else}}
+        <li>No hay productos</li>
+        {{/if}}
+    </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+<script>
+    const socket = io();
+    
+    const formTitle = document.getElementById('title');
+        const formPrice = document.getElementById('price');
+        const formThumbnail = document.getElementById('thumbnail');
+        const formCode = document.getElementById('code');
+        const formStock = document.getElementById('stock');
+        const formDescription = document.getElementById('description');
+        const formcategory = document.getElementById('category');
+
+        const product=[];
+        const addProduct = ()=> {
+            let newProduct = {
+                title: formTitle.value,
+                description: formDescription.value,
+                price: formPrice.value,
+                thumbnail: formThumbnail.value,
+                code: formCode.value,
+                stock: formStock.value,
+                status:true,
+                category:formcategory.value
+            }
+            product.push(newProduct);
+            socket.emit('newProduct', newProduct);
+            socket.on('listProducts', (data) => {
+                console.log(data);
+            })
+
+
+
+        }
+</script>
