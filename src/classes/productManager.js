@@ -113,7 +113,7 @@ async deleteProduct(id) {
             //Write new array whitout product deleted
             fs.writeFile(this.path, JSON.stringify(productArray, null, 2));
         } catch (error) {
-            throw new Error(`Not found product with id: ${id}`);
+            console.log(error);
         }
     }
 }

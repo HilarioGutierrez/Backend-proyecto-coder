@@ -27,26 +27,26 @@ app.use('/', router)
 //Listen app(express) on port 8080. HTTP server
 const httpServer = app.listen(PORT, () =>{console.log("Server running on port 8080")}) ;
 
-const arrayProducts = new productManager();
-const products = arrayProducts.getProducts();
+const manager = new productManager();
 
 //Socket.io
 const socketServer = new Server(httpServer);
-
-socketServer.on('connection', (socket) => {
+const get = manager.getProducts();
+socketServer.on('connection', async (socket) => {
         console.log(`New client connected. ID: ${socket.id}`);
 
-        socket.on('new-product', (data) => {
-            console.log(data);
-            arrayProducts.addProduct(data);
-            socketServer.emit('listProducts', 
-                arrayProducts.getProducts())
+
+        socket.on('new-product', async (data) => {
+            console.log('data');
+            manager.addProduct(data);
+            socketServer.emit('listProducts', await get)
         })
 
-        socket.on('delete-product', (data) => {
-            console.log(data);
-            arrayProducts.deleteProduct(data);
+        socket.on('delete-product', async (data) => {
+            manager.deleteProduct(data);
+            socketServer.emit('listProducts',await get)
         })
+
 });
 
 export { socketServer };
