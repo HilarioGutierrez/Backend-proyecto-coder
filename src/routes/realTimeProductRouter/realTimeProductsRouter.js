@@ -15,15 +15,6 @@ realTimeProductsRouter.get('/', async (req, res) => {
     }
 });
 
-realTimeProductsRouter.get('/realtimeproducts', async (req,res)=>{        
-    try {
-        
-        res.render('realtimeproducts', {title: "Real Time Products"});    
-    } catch (error) {
-        res.status(404).send(error);
-
-    }
-});
 
 
 export default realTimeProductsRouter;
