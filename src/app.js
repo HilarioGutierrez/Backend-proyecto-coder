@@ -3,7 +3,18 @@ import { engine } from "express-handlebars";
 import { resolve } from "path";
 import  { Server } from "socket.io";
 import router from "./routes/index.js";
-import productManager from "./classes/productManager.js";
+import productManager from "./manager/productManager.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+//Connect to MongoDB
+mongoose.connect(process.env.MONGO_DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
+)
 
 const app = express();
 //Port to listen
@@ -26,6 +37,7 @@ app.use('/', router)
 
 //Listen app(express) on port 8080. HTTP server
 const httpServer = app.listen(PORT, () =>{console.log("Server running on port 8080")}) ;
+
 
 const manager = new productManager();
 

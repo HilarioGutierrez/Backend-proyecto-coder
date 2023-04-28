@@ -34,9 +34,9 @@ class productManager {
             this.#autoId = lastProduct.id + 1;
         }
             //desestructuring
-            const {id, title, description, price, category , status,  stock, code, thumbnail } = product;
+            const {id, title, description, price, category , stock, code, thumbnail } = product;
             //Validate data
-            if ( !title || !description || !price || !code || !category|| !status || !stock || !thumbnail) {
+            if ( !title || !description || !price || !code || !category|| !stock || !thumbnail) {
                 throw new Error('Invalid data');
             }
             //push product to array

@@ -15,3 +15,5 @@ const storage = multer.diskStorage({
 });
 
 export const uploader = multer({ storage });
+//del lado del cliente el uploader se usa de la siguiente manera:
+//manager.post('/', uploader.single('image'), (req, res) => {(**condicional para saber si se subio la imagen o la logica que querramos poner en la carga de imagen**)});
