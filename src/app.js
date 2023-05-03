@@ -43,7 +43,7 @@ const manager = new productManager();
 
 //Socket.io
 const socketServer = new Server(httpServer);
-const get = manager.getProducts();
+const get = manager.find();
 socketServer.on('connection', async (socket) => {
         console.log(`New client connected. ID: ${socket.id}`);
 
