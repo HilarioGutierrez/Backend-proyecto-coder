@@ -12,7 +12,7 @@ thumbnail: { type: Schema.Types.String, required: true },
 code: { type: Schema.Types.String, required: true, unique: true },
 stock: { type: Schema.Types.Number, required: true },
 status: { type: Schema.Types.Boolean, default: true },
-category: { type: Schema.Types.String, required: true },
+category: { type: Schema.Types.String, index: true, required: true },
 }); 
 
 //The schema provides functionality to the application

@@ -1,84 +1,52 @@
-import fs from 'fs/promises';
+import cartMongooseDao from "../daos/cartsMongooseDao.js";
+import productsMongooseDao from "../daos/productsMongooseDao.js";
 
 class cartManager {
 
-    #autoId = 1;
-    #path = '';
-    #cart = [];
-
     constructor() {
-        this.#cart = [];
-        this.#path = './src/db/cart.json';
+        this.cartDao = new cartMongooseDao();
+        this.productDao = new productsMongooseDao();
+    }
+    async create() {
+        return this.cartDao.create();
     }
 
-    createCart = async () => {
-    try {
-        const newCart = {id: this.#autoId++, products: []};
-        this.#cart.push(newCart);
-        fs.writeFile(this.#path, JSON.stringify(this.#cart, null, 2));
-
-    } catch (error) {
-        throw new Error(error);
-    }
+    async getAll() {
+        return this.cartDao.getAll();
     }
 
-    async getProductById(id) {
-        //Read file
-        const carts = await fs.readFile(this.#path, 'utf-8');
-        const cartsArray = JSON.parse(carts);
-        //finde product by id
-        const searchcart = await cartsArray.find(product => product.id === id);
-
-        if (!searchcart) {
-            throw new Error(`Not found cart with id: ${id}`);
-        }
-        return searchcart;
+    async getOne(id) {
+        return this.cartDao.getOne(id);
     }
 
-    async addProduct(cid, pid) {
-        try {
-        // Read file
-        const cartsFile = await fs.readFile(this.#path, 'utf-8');
-        const cartsJson = JSON.parse(cartsFile);
-    
-        // Find cart by id
-        const searchCart = cartsJson.find(cart => cart.id === cid);
-        if (!searchCart) {
-            throw new Error(`Not found cart with id: ${cid}`);
-        }
-    
-        // Read products file
-        const pathProducts = './src/db/product.json';
-        const productsFile = await fs.readFile(pathProducts, 'utf-8');
-        const productsJson = JSON.parse(productsFile);
-    
-        // Find product by id
-        const searchProduct = productsJson.find(product => product.id === pid);
-        if (!searchProduct) {
-            throw new Error(`Not found product with id: ${pid}`);
-        }
-    
+    async addProduct (cid,pid) {
+        const product = await this.productDao.getOne(pid);
+        if(!product) throw new Error(`Not found product with id: ${pid}`);
+        
+        const cart = await  this.cartDao.getOne(cid);
+        if(!cart) throw new Error(`Not found cart with id: ${cid}`);
+
         // Check if product already exists in cart
-        const cartProductIndex = searchCart.products.findIndex(cartProduct => cartProduct.idProduct === pid);
+        const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
         if (cartProductIndex !== -1) {
             // If product already exists, increase its quantity
-            searchCart.products[cartProductIndex].quantity += 1;
+    cart.products[cartProductIndex].quantity += 1;
+
         } else {
             // If product does not exist, add it to the cart with a quantity of 1
-            searchCart.products.push({
-        idProduct: pid,
-        quantity: 1
-            });
+            
+            cart.products.push({id:product.id, quantity: 1});
         }
-    
-        // Write updated cart to file
-        await fs.writeFile(this.#path, JSON.stringify(cartsJson, null, 2));
 
-        return `Product with id ${pid} added to cart with id ${cid}`;
-        } catch (error) {
-        console.log(error);
-        }
+        return this.cartDao.updateOne(cid, cart);
+    }
+
+    async deleteOne (id) {
+        const cart = await this.cartDao.deleteOne(id);
+        if (!cart) throw new Error(`Not found cart with id: ${id}`);
     }
 }
+
+
 
 export default cartManager;

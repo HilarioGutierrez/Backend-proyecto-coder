@@ -1,8 +1,8 @@
-import productSchema from "./models/productSchema.js";
+import productSchema from "../models/productSchema.js";
 
-class productsMongooseDaos {
+class productsMongooseDao {
 
-    async find() // getAll, find, list, getStudents
+    async find() //
     {
     const productsDocument = await productSchema.find();
         return productsDocument.map(p => ({
@@ -21,7 +21,7 @@ class productsMongooseDaos {
 
     async getOne (id) {
 
-        const product = await productSchema.findOne(id);
+        const product = await productSchema.findOne({_id:id});
         return {
             id: product._id,
             title: product.title,
@@ -87,4 +87,4 @@ class productsMongooseDaos {
     }
 }
 
-export default productsMongooseDaos;
+export default productsMongooseDao;

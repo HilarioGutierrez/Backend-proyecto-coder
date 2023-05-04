@@ -51,16 +51,10 @@ export const add = async (req, res) => {
             throw new Error('Invalid data');
             }
             const newProduct = await manager.add(product);
+            res.status(200).send({message: 'Product Added', payload: newProduct});
             
-            const exist = await newProduct.find(product => product.code === code || product.id === id);
-            if (!exist) {
-                //add product
-                res.status(200).send({message: 'Product Added', payload: newProduct});
-            }else{
-                res.status(404).send(`Product with code: ${product.code} already exist`);
-            }
     } catch (error) {
-        console.log(error);
+        res.status(400).send({error:error.message});
         
     }
 }
@@ -71,12 +65,12 @@ export const updateOne = async (req, res) => {
     const param = req.params.pid;
     try {
         const product = await manager.updateOne(param, req.body);
-        res.send(product);
+        res.send({ product: product });
 
     } catch (error) {
         res.status(404).send({message: 'Product not found', error: error.message});
-        throw new Error(`Not found product with id: ${param}`);
     }
+//--> VER PORQUE EL SEND MUESTRA EL PRODUCT NO ACTUALIZADO, PERO EN DB SE ACTALIZO <--//
 }
 
 //delete product
