@@ -1,10 +1,10 @@
 import { Router } from "express";
-import productController, { add, deleteOne, getOne, updateOne } from "../../controllers/productController.js";
+import { add, deleteOne, find, getOne, updateOne } from "../../controllers/productController.js";
 
 const productRouter = Router();
 
 //GET products from DB. Req.query limited the number of products to show
-productRouter.get('/',  productController.find );
+productRouter.get('/', find );
 
 //GET products by ID from productManager
 productRouter.get('/:pid', getOne );

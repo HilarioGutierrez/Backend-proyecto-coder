@@ -7,9 +7,9 @@ class productManager {
     }
 
     //Get products.
-    async find() 
+    async find(query) 
     {
-    return this.productDao.find();
+    return this.productDao.find(query);
     }
 
     async getOne(id){

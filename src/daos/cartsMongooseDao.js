@@ -6,7 +6,7 @@ class cartMongooseDao {
 
     async create () {
 
-        return await cartSchema.create({products: []});
+        return await cartSchema.create({ products: [] });
 
         // const cart = await cartSchema.findOne(data);
         
@@ -27,7 +27,7 @@ class cartMongooseDao {
     }
 
     async getOne (id) {
-        const cart = await cartSchema.findOne({_id:id});
+        const cart = await cartSchema.findOne( {_id:id} );
         return {
             id: cart._id,
             products: cart.products
@@ -35,7 +35,7 @@ class cartMongooseDao {
     }
 
     async updateOne (id, data) {
-        const cart = await cartSchema.findOneAndUpdate({_id:id},data);
+        const cart = await cartSchema.findOneAndUpdate( {_id:id}, data );
         return {
             id: cart._id,
             products: cart.products
@@ -44,7 +44,11 @@ class cartMongooseDao {
     }
 
     async deleteOne (id) {
-        return await cartSchema.findOneAndDelete({_id:id});
+        return await cartSchema.findOneAndDelete( {_id:id} );
+    }
+
+    async delete () {
+        return await cartSchema.deleteMany();
     }
 }
 
