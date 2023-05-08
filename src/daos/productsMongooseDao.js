@@ -4,19 +4,25 @@ class productsMongooseDao {
 
     async  find(query)
     {
-        const { limit, page } = query;
-        const productsDocument = await productSchema.paginate({ limit , page });
-        return productsDocument.docs.map(p => ({
-            id: p._id,
-            title: p.title,
-            description: p.description,
-            price: p.price,
-            thumbnail: p.thumbnail,
-            code: p.code,
-            stock: p.stock,
-            status: p.status,
-            category: p.category
-        }))
+        try {
+            const { status, limit, page } = query;
+            const productsDocument = await productSchema.paginate({status},{ limit , page });
+            console.log(productsDocument);
+            return productsDocument.docs.map(p => ({
+                id: p._id,
+                title: p.title,
+                description: p.description,
+                price: p.price,
+                thumbnail: p.thumbnail,
+                code: p.code,
+                stock: p.stock,
+                status: p.status,
+                category: p.category
+            }))
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async getOne (id) {

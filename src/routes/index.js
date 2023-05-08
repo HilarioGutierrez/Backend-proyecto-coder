@@ -4,7 +4,7 @@ import realTimeProductsRouter from './viewsRouter/realTimeProductsRouter.js'
 import productRouter from './productRouter/productRouter.js'
 import cartRouter from './cartRouter/cartRouter.js'
 
-const router = new Router()
+const router = Router()
 
 router.use('/', homeProductRouter)
 router.use('/realtimeproducts', realTimeProductsRouter)

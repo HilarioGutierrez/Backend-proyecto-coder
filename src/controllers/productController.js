@@ -7,26 +7,8 @@ export const find = async (req = request, res = response) => {
     
     const { status, limit, page } = req.query;
     const products = await manager.find( { status,  limit,  page} );
-    console.log(products);
     res.status(200).send({message: 'success', payload: products})
 
-    // try {
-    //         let consult = +req.query.limit;
-    //         const products = await manager.find();
-            
-        
-    //         // if consult is not a number, send all products. Else send the number of products limited by consult
-    //         if (!consult) {
-    //             res.send( { message: 'success' , payload: products } );
-    //             return;
-    //         }
-    //         //Show the number of products limited by consult
-    //         const filteredProducts = products.slice(0, consult);
-    //         res.status(200).send(filteredProducts);
-        
-    //     } catch (error) {
-    //         res.status(500).send({error: `Internal server. ${error}`});
-    //     }
 }
 
 //get one product by id
