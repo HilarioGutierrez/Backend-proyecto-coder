@@ -13,7 +13,7 @@ export const find = async (req, res) => {
     
     try {
         
-        const products = await manager.find( query );
+        const products = await manager.find(query);
         const productsDocs = products.docs.map(p => ({
             id: p._id,
             title: p.title,
