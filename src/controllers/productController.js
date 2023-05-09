@@ -1,13 +1,64 @@
 import productManager from "../manager/productManager.js";
-import { request, response } from "express";
 
 const manager = new productManager();
 
-export const find = async (req = request, res = response) => {
+export const find = async (req, res) => {
+
+        const query = {
+            status: req.query.status,
+        limit: +req.query.limit || 10,
+        page: +req.query.page || 1,
+        sort: req.query.sort 
+    }
     
-    const { status, limit, page } = req.query;
-    const products = await manager.find( { status,  limit,  page} );
-    res.status(200).send({message: 'success', payload: products})
+    try {
+        
+        const products = await manager.find( query );
+        const productsDocs = products.docs.map(p => ({
+            id: p._id,
+            title: p.title,
+            description: p.description,
+            price: p.price,
+            thumbnail: p.thumbnail,
+            code: p.code,
+            stock: p.stock,
+            status: p.status,
+            category: p.category
+        }))
+
+        // function to order by price
+        const orderByPrice = (products, order) => {
+            const sortedProducts = products.sort((a, b) => {
+            if (order === 'asc') {
+                return a.price - b.price;
+            } else {
+                return b.price - a.price;
+            }
+            });
+            return sortedProducts;
+        }
+
+        orderByPrice(productsDocs, query.sort);
+
+        // Object whit pagination data
+        const pagination = { 
+            totalPages: products.totalPages, 
+            prevPages: products.prevPage, 
+            nextPage: products.nextPage, 
+            page: products.page, 
+            hasPrevPage: products.hasPrevPage, 
+            hasNextPage: products.hasNextPage, 
+            prevLink: products.prevLink, 
+            nextLink: products.nextLink
+        }
+        
+        res.status(200).send({message: 'success', payload: productsDocs, pagination: pagination })
+        
+    } catch (error) {
+        res.status(500).send({message: 'error', error: error.message});
+        throw new Error(error);
+    }
+
 
 }
 

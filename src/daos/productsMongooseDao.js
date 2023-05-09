@@ -1,5 +1,10 @@
 import productSchema from "../models/productSchema.js";
 
+const sort = {
+    'asc': 1,
+    'desc': -1
+} 
+
 class productsMongooseDao {
 
     async  find(query)
@@ -8,7 +13,7 @@ class productsMongooseDao {
             const { status, limit, page } = query;
             const productsDocument = await productSchema.paginate({status},{ limit , page });
             console.log(productsDocument);
-            return productsDocument.docs.map(p => ({
+                productsDocument.docs.map(p => ({
                 id: p._id,
                 title: p.title,
                 description: p.description,
@@ -19,7 +24,9 @@ class productsMongooseDao {
                 status: p.status,
                 category: p.category
             }))
-            
+
+            return productsDocument
+
         } catch (error) {
             console.log(error);
         }
