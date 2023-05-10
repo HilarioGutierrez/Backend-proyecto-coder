@@ -5,21 +5,7 @@ class cartMongooseDao {
 // addProduct to cart -- delete cart
 
     async create () {
-
         return await cartSchema.create({ products: [] });
-
-        // const cart = await cartSchema.findOne(data);
-        
-        // if(!cart) {
-        //     const newCart = await cartSchema.create(data);
-    
-        //     return {
-        //     id: newCart._id,
-        //     products: newCart.products
-        //     }
-            
-        // }
-        // throw new Error(`Cart already exists`);
     }
 
     async getAll () {
@@ -47,8 +33,9 @@ class cartMongooseDao {
         return await cartSchema.findOneAndDelete( {_id:id} );
     }
 
-    async delete () {
-        return await cartSchema.deleteMany();
+    async deleteProduct(cid){
+        const cart = await cartSchema.findOne( {_id:cid} );
+        return cart
     }
 }
 

@@ -5,10 +5,10 @@ const manager = new productManager();
 export const find = async (req, res) => {
 
         const query = {
-            status: req.query.status,
-        limit: +req.query.limit || 10,
+            status: req.query.status || 'true',
+        limit: +req.query.limit || 5,
         page: +req.query.page || 1,
-        sort: req.query.sort 
+        sort: req.query.sort || 'asc',
     }
     
     try {

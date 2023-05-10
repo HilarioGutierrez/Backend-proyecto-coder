@@ -43,6 +43,21 @@ class cartManager {
     const cart = await this.cartDao.deleteOne(id)
     if (!cart) throw new Error(`Not found cart with id: ${id}`)
   }
+
+  async delateProduct (cid, pid) {
+    const cart = await this.cartDao.deleteProduct(cid);
+    if (!cart) throw new Error(`Not found cart with id: ${cid}`)
+
+    const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
+    if (cartProductIndex !== -1) {
+      cart.products[cartProductIndex].quantity -= 1 || 0;
+      if (cart.products[cartProductIndex].quantity === 0) {
+        cart.products.splice(cartProductIndex, 1);
+      }
+    }
+    return this.cartDao.updateOne(cid, cart);
+  }
+
 }
 
 export default cartManager

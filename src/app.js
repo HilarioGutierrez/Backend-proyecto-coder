@@ -3,21 +3,20 @@ import { engine } from 'express-handlebars'
 import { resolve } from 'path'
 //import { Server } from 'socket.io'
 import router from './routes/index.js'
-import productManager from './manager/productManager.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
 // Connect to MongoDB
-void (async () => {
+//void (async () => {
 
   mongoose.connect(process.env.MONGO_DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-})
-()
+//})
+//()
 
 const app = express()
 // Port to listen
