@@ -56,8 +56,8 @@ export const deleteOne = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const { cid, pid } = req.params
-    const deleteProduct = await manager.delateProduct(cid, pid)
-    res.status(200).send({ message: 'Product deleted', deleteProduct })
+    const deleteProduct = await manager.deleteProduct(cid, pid)
+    res.status(200).send({ message: 'Product deleted' })
   } catch (error) {
     res.status(400).send({ error: error.message })
   }
