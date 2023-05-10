@@ -26,16 +26,10 @@ class cartMongooseDao {
             id: cart._id,
             products: cart.products
         }
-
     }
 
     async deleteOne (id) {
         return await cartSchema.findOneAndDelete( {_id:id} );
-    }
-
-    async deleteProduct(cid){
-        const cart = await cartSchema.findOne( {_id:cid} );
-        return cart
     }
 }
 

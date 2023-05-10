@@ -45,10 +45,14 @@ class cartManager {
   }
 
   async delateProduct (cid, pid) {
-    const cart = await this.cartDao.deleteProduct(cid);
+    //get cart
+    const cart = await this.cartDao.getOne(cid);
+    //check if cart exists
     if (!cart) throw new Error(`Not found cart with id: ${cid}`)
 
+    //check if product exists in cart
     const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
+    //if product exists and quantity is greater than 1, decrease quantity by 1, else delete product from cart
     if (cartProductIndex !== -1) {
       cart.products[cartProductIndex].quantity -= 1 || 0;
       if (cart.products[cartProductIndex].quantity === 0) {
@@ -56,6 +60,22 @@ class cartManager {
       }
     }
     return this.cartDao.updateOne(cid, cart);
+  }
+
+  async updateQuantity (cid, pid, quantity) {
+    try {
+      const cart = await this.cartDao.getOne(cid);
+      if (!cart) throw new Error(`Not found cart with id: ${cid}`)
+
+    const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
+    if (cartProductIndex !== -1) {
+      cart.products[cartProductIndex].quantity = quantity;
+    }
+    return this.cartDao.updateOne(cid, cart);
+
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
 }

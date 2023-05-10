@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import cartController, { addProduct, deleteOne, deleteProduct, getAll, getOne } from '../../controllers/cartController.js'
+import cartController, { addProduct, deleteOne, deleteProduct, getAll, getOne, updateQuantity } from '../../controllers/cartController.js'
 
 const cartRouter = Router()
 
@@ -12,9 +12,13 @@ cartRouter.get('/:cid', getOne);
 
 cartRouter.post('/:cid/product/:pid', addProduct);
 
+cartRouter.put('/:cid/product/:pid', updateQuantity);
+
 cartRouter.delete('/:cid', deleteOne);
 
 cartRouter.delete('/:cid/product/:pid', deleteProduct);
+
+
 
 
 // Falta hacer router que elimine el producto de un carrito
