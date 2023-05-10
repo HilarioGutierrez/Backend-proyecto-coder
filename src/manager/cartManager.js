@@ -1,5 +1,6 @@
 import cartMongooseDao from '../daos/cartsMongooseDao.js'
 import productsMongooseDao from '../daos/productsMongooseDao.js'
+import { ObjectId } from 'mongodb'
 
 class cartManager {
   constructor () {
@@ -27,13 +28,14 @@ class cartManager {
     if (!cart) throw new Error(`Not found cart with id: ${cid}`)
 
     // Check if product already exists in cart
-    const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid)
+    const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
     if (cartProductIndex !== -1) {
       // If product already exists, increase its quantity
       cart.products[cartProductIndex].quantity += 1
     } else {
+      console.log(product.id);
       // If product does not exist, add it to the cart with a quantity of 1
-      cart.products.push({ id: product.id, quantity: 1 })
+      cart.products.push({ id: new ObjectId(product.id), quantity: 1 })
     }
 
     return this.cartDao.updateOne(cid, cart)

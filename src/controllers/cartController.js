@@ -39,7 +39,7 @@ export const addProduct = async (req, res) => {
     const cart = await manager.addProduct(cid, pid);
     res.status(200).send({ message: 'Product added' });
   } catch (error) {
-    console.log("error del carrito ",error.message);
+    console.log("error del carrito.",error.message);
   }
 }
 

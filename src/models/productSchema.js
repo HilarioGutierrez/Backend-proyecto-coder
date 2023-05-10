@@ -18,6 +18,5 @@ category: { type: Schema.Types.String, required: true },
 //Pagination plugin
 productSchema.plugin(mongoosePaginate);
 
-
 //The schema provides functionality to the application
 export default mongoose.model(productCollection, productSchema); 
