@@ -9,7 +9,7 @@ class cartMongooseDao {
     }
 
     async getAll () {
-        return await cartSchema.find();
+        return await cartSchema.find().populate( 'products' );
     }
 
     async getOne (id) {

@@ -34,8 +34,9 @@ class cartManager {
       cart.products[cartProductIndex].quantity += 1
     } else {
       console.log(product.id);
-      // If product does not exist, add it to the cart with a quantity of 1
-      cart.products.push({ id: new ObjectId(product.id), quantity: 1 })
+
+      cart.products.push( product.id);
+
     }
 
     return this.cartDao.updateOne(cid, cart)

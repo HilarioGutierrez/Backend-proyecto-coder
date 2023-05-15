@@ -19,11 +19,4 @@ cartRouter.delete('/:cid', deleteOne);
 cartRouter.delete('/:cid/product/:pid', deleteProduct);
 
 
-
-
-// Falta hacer router que elimine el producto de un carrito
-// Falta hacer put que actualice el producto de un carrito
-// Falta put que actualice solo cantidad
-// Falta hacer delete de todos los productos de carrito
-
 export default cartRouter

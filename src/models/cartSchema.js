@@ -6,7 +6,7 @@ const productCollection = "carts";
 //Schema definition for the cart
 
 const cartSchema = new mongoose.Schema({
-    products: {type:Schema.Types.Array, ref: "products", default: [], required: true}
+    products: [{type:Schema.Types.ObjectId, ref: "products", default: [], required: true}]
 });
 
 cartSchema.pre('getAll', function() {
