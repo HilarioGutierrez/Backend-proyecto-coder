@@ -2,7 +2,7 @@ import productSchema from "../models/productSchema.js";
 
 class productsMongooseDao {
 
-    async  find(query)
+    async find(query)
     {
         try {
             const { status, limit, page } = query;
