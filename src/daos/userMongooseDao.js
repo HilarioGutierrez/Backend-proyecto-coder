@@ -1,14 +1,35 @@
-import userSchema from "../models/userSchema";
+import userSchema from "../models/userSchema.js";
 
-class userMongooseDao{
+class userMongooseDao {
+
+    async paginate (criteria) {
+        const { limit, page } = criteria;
+
+        const users = await userSchema.paginate({},{limit: limit, page: page});
+        users.docs= users.docs.map(user => {
+            return {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                age: user.age
+            }
+        });
+        return users;
+    }
 
     async getOne (email) {
         try {
             const user = await userSchema.findOne({email: email});
+            
+            if(!user) {
+                throw new Error('User not found')
+            }
+            
             return{
                 firstName: user.firstName,
-                LastName: user.LastName,
+                lastName: user.lastName,
                 email: user.email,
+                age: user.age
             }
         } catch (error) {
             console.log({error: error.message});
@@ -16,35 +37,57 @@ class userMongooseDao{
         }
     }
 
-    async addOne (user) {
+    async getOneByEmail (email) {
+        try {
+            const user = await userSchema.findOne({email: email});
+            
+            if(!user) {
+                throw new Error('User not found')
+            }
+            
+            return{
+                id: user._id.toString(),
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                age: user.age,
+                password: user.password
+            }
+        } catch (error) {
+            console.log({error: error.message});
+            throw new Error(error.message);
+        }
+    }
+
+    async create (user) {
         try {
             const newUser = await userSchema.create(user);
             return {
                 firstName: newUser.firstName,
-                LastName: newUser.LastName,
+                lastName: newUser.lastName,
                 email: newUser.email,
-                password: newUser.password
+                age: newUser.age,
             }
         } catch (error) {
             console.log({error: error.message});
         }
     }
 
-    async getAll () {
+    async updateOne (email, data) {
         try {
-            const users = await userSchema.find();
+            const user = userSchema.findOneAndUpdate( {email: email}, data, {new: true} );
+
+            if(!user) {
+                throw new Error('User not found');
+            }
             return {
-                users: users.map((user) => {
-                    return {
-                        firstName: user.firstName,
-                        LastName: user.LastName,
-                        email: user.email,
-                    }
-                })
-            };
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                age: user.age,
+            }
         } catch (error) {
             console.log({error: error.message});
-            throw new Error(error.message);
         }
     }
 
@@ -57,15 +100,6 @@ class userMongooseDao{
             } 
             await userSchema.deleteOne({email: email});
 
-        } catch (error) {
-            console.log({error: error.message});
-        }
-    }
-
-    async updateOne (email, data) {
-        try {
-            const user = userSchema.findOneAndUpdate({email: email},data);
-            return user
         } catch (error) {
             console.log({error: error.message});
         }

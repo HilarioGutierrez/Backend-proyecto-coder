@@ -1,29 +1,33 @@
-import userMongooseDao from "../daos/userMongooseDao";
+import userMongooseDao from '../daos/userMongooseDao.js'
 
 class userManager {
 
-    constroctor() {
+    constructor() {
         this.userDao = new userMongooseDao();
     }
 
     async getOne(email) {
-        return await this.userDao.getOne(email);
+        return this.userDao.getOne(email);
     }
 
-    async addOne(user) {
-        return await this.userDao.addOne(user);
+    async getOneByEmail(email) {
+        return this.userDao.getOneByEmail(email);
     }
 
-    async getAll() {
-        return await this.userDao.getAll();
+    async create(user) {
+        return this.userDao.create(user);
+    }
+
+    async paginate(criteria) {
+        return this.userDao.paginate(criteria);
     }
 
     async deleteOne(email) {
-        return await this.userDao.deleteOne(email);
+        return this.userDao.deleteOne(email);
     }
 
     async updateOne(email, user) {
-        return await this.userDao.updateOne(email, user);
+        return this.userDao.updateOne(email, user);
     }
 }
 

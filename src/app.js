@@ -2,13 +2,15 @@ import mongoose from 'mongoose'
 import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser';
+import  fileStore  from 'session-file-store';
 
 import router from './routes/index.js';
-import cookieParser from 'cookie-parser';
 
 import { resolve } from 'path'
 import { Server } from 'socket.io'
 import { engine } from 'express-handlebars'
+import MongoStore from 'connect-mongo';
 
 
 dotenv.config()
@@ -34,9 +36,13 @@ app.use(cookieParser(process.env.SECRET_KEY));
 
 //Session
 app.use(session({
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_DB_URI,
+    ttl: 100
+  }),
   secret: process.env.SECRET_KEY,
-  resave: true, // permite mantener la session activa mientras la session este inactiva
-  saveUninitialized: true, //permite guardar la sessin aunque el obj no tenga data
+  resave: false, // permite mantener la session activa mientras la session este inactiva
+  saveUninitialized: false, //permite guardar la sessin aunque el obj no tenga data
 }))
 
 // Listen app(express) on port 8080. HTTP server
