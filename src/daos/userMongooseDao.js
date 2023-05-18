@@ -20,7 +20,11 @@ class userMongooseDao{
         try {
             const newUser = await userSchema.create(user);
             return {
-                NewUser: `Bienvenido ${newUser.firstName} ${newUser.LastName}`};
+                firstName: newUser.firstName,
+                LastName: newUser.LastName,
+                email: newUser.email,
+                password: newUser.password
+            }
         } catch (error) {
             console.log({error: error.message});
         }
