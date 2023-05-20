@@ -3,7 +3,6 @@ import express from 'express';
 import session from 'express-session';
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
-import  fileStore  from 'session-file-store';
 
 import router from './routes/index.js';
 
@@ -36,7 +35,7 @@ app.use(cookieParser(process.env.SECRET_KEY));
 
 //Session
 app.use(session({
-  store: MongoStore.create({
+  store: MongoStore.create({ // Se crea la session en la base de datos
     mongoUrl: process.env.MONGO_DB_URI,
     ttl: 100
   }),
