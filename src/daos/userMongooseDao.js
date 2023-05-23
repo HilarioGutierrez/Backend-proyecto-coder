@@ -81,17 +81,19 @@ class userMongooseDao {
     //Update one user. Can update everyone property
     async updateOne (email, data) {
         try {
-            const user = userSchema.findOneAndUpdate( {email: email}, data, {new: true} );
+            const user = await userSchema.findOneAndUpdate( {email: email}, data, {new: true} );
 
             if(!user) {
                 throw new Error('User not found');
             }
-            return {
+            const userNew = {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
                 age: user.age,
             }
+            console.log({user: userNew});
+            return userNew
         } catch (error) {
             console.log({error: error.message});
         }

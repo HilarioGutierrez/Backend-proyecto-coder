@@ -53,7 +53,6 @@ export const updateOne = async (req, res,next) => {
             throw new Error('Missing fields');
         }
         const result = await manager.updateOne(email, user);
-
         res.status(200).send({message: 'success', payload: result });
 
     } 
