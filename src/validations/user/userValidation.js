@@ -5,7 +5,7 @@ export const userValidation = z.object({
     lastName: z.string().min(3).max(20),
     email:z.string().email(),
     age: z.number().max(100),
-    password: z.string(),
+    password: z.string().max(24),
 });
 
 export const emailValidation = z.object({

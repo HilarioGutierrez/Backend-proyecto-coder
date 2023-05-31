@@ -1,6 +1,6 @@
 import { generateToken } from "../utils/generateToken.js";
 import { creatHash, isValidPassword } from "../utils/passwardHash.js";
-import { singupValidation, userValidation } from "../validations/userValidation.js";
+import { singupValidation, userValidation } from "../validations/user/userValidation.js";
 import userManager from "./userManager.js";
 
 const manager = new userManager();

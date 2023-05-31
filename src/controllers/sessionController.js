@@ -1,7 +1,5 @@
 import sessionManager from "../manager/sessionManager.js";
 import userManager from "../manager/userManager.js";
-import { generateToken } from "../utils/generateToken.js";
-import { creatHash, isValidPassword } from "../utils/passwardHash.js";
 
 const manager = new userManager();
 const session = new sessionManager();
@@ -12,10 +10,11 @@ export const login = async (req, res, next) => {
         const data = await session.login(userData);
         
         res.cookie('token', data.accessToken, 
-        {httpOnly: true,
-        sameSite: 'none',
-        secure: true})
-        .status(200).send(data)
+            {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            })
+            .status(200).send(data)
     } 
     catch (e) {
         next(e);
@@ -55,3 +54,42 @@ export const singup = async (req, res, next) => {
         
     }
 };
+
+// export const login2 = async (req, res) =>
+// {
+//     if(!req.user) return res.status(400).send({ status: 'error', message: 'Invalid credentials'});
+
+//     req.session.user = {
+//     firstName: req.user.firstName,
+//     lastName: req.user.lastName,
+//     email: req.user.email,
+//     };
+
+//     res.send({ status: 'success', message: 'Login success'});
+// }
+
+// export const register = async (req, res) =>{
+//     res.status(200).send({message: 'success', newUser: req.user})
+// };
+
+// export const fail = async (req, res) =>{
+//     console.log('fail strategy');
+//     res.status(400).send({message: 'error', error: 'Fail strategy'});
+// };
+
+// export const forgetPassword = async (req, res) =>{
+//     try {
+//         const { email, password } = req.body;
+
+//         const dto = { email, password: await creatHash(password,10)};
+
+//         const user = await manager.getOneByEmail(email);
+//         const isHashedPassword = await isValidPassword(password,user.password);
+
+//         const newUser = await manager.update(user.id, dto);
+
+//         return res.status(200).send({message: 'success', newUser});
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };

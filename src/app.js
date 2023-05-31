@@ -10,6 +10,8 @@ import { resolve } from 'path'
 import { Server } from 'socket.io'
 import { engine } from 'express-handlebars'
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializePassport from './config/passport.config.js';
 
 
 dotenv.config()
@@ -27,7 +29,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Set the port of our application
 const PORT = 8080;
 
 //Cookies
@@ -44,26 +45,30 @@ app.use(session({
   saveUninitialized: false, //permite guardar la sessin aunque el obj no tenga data
 }))
 
+//Passport
+initializePassport()
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Listen app(express) on port 8080. HTTP server
 const httpServer = app.listen(PORT, () => { console.log('Server running on port 8080') })
 
-//Use router's app
 app.use('/', router);
 
-//Handlebars
 const handlebars = () => {
 
   const app = express();
   
   const view = resolve('src/views')
-  app.set('view engine', 'handlebars')
-  app.set('views', view)
   app.engine('handlebars', engine({
       layoutsDir: `${view}/layouts`,
       defaultLayout: `${view}/layouts/main.handlebars`
   }))
+  app.set('view engine', 'handlebars')
+  app.set('views', view)
 }
-//Socket.io
+//handlebars()
+
 const socket = () => {
   const manager = new productManager()
 

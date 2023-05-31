@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import productManager from '../../manager/productManager.js'
+import { find } from '../../controllers/productController.js'
 
 const homeProductRouter = Router()
-const manager = new productManager()
 
 homeProductRouter.get('/', async (req, res) => {
   try {
-    const listRpoducts = await manager.getProducts()
+    
+    const listRpoducts =  find
     res.render('homeProducts', { products: listRpoducts })
   } catch (error) {
     res.status(500).json({ error: error.message })

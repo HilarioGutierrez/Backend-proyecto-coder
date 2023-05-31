@@ -1,6 +1,6 @@
-import userManager from "../manager/userManager.js";
+import roleManager from "../manager/roleManager.js";
 
-const manager = new userManager();
+const manager = new roleManager();
 
 export const list  = async (req, res,next) => {
     try {
@@ -21,9 +21,9 @@ export const list  = async (req, res,next) => {
 
 export const getOne = async (req, res,next) => {
     try {
-        const { email } = req.params;
-        const user = await manager.getOne(email);
-        res.status(200).send({message: 'success', payload: user});
+        const { id } = req.params;
+        const role = await manager.getOne(id);
+        res.status(200).send({message: 'success', payload: role});
     }
     catch (e) {
         next(e);
@@ -32,10 +32,10 @@ export const getOne = async (req, res,next) => {
 
 export const create = async (req, res,next) => {
     try {
-        const  user  = req.body;
-        const newUser = await manager.create(user);
+        const  role  = req.body;
+        const newRole = await manager.create(role);
         
-        res.status(200).send({message: 'success', payload: newUser});
+        res.status(200).send({message: 'success', payload: newRole});
         
     } 
     catch (e) {
@@ -45,14 +45,14 @@ export const create = async (req, res,next) => {
 
 export const updateOne = async (req, res,next) => {
     try {
-        const { email } = req.params;
-        const user = req.body;
+        const { id } = req.params;
+        const role = req.body;
 
-        if(!email) {
-            res.status(404).send({message: 'User not found'});
+        if(!id) {
+            res.status(404).send({message: 'role not found'});
             throw new Error('Missing fields');
         }
-        const result = await manager.updateOne(email, user);
+        const result = await manager.updateOne(id, role);
         res.status(200).send({message: 'success', payload: result });
 
     } 
@@ -63,13 +63,13 @@ export const updateOne = async (req, res,next) => {
 
 export const deleteOne = async (req, res,next) => {
     try {
-        const { email } = req.params;
+        const { id } = req.params;
         
-        if(!email) {
-            res.status(404).send({message: 'User not found'});
+        if(!id) {
+            res.status(404).send({message: 'Role not found'});
             throw new Error('Missing fields');
         }
-        await manager.deleteOne(email);
+        await manager.deleteOne(id);
         res.status(200).send({message: 'success'});
 
     } 
