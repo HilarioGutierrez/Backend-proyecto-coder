@@ -11,3 +11,5 @@ const authorization = (permissions) => {
         next();
     }
 }
+
+export default authorization;
