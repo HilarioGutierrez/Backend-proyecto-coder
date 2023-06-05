@@ -71,11 +71,6 @@ class roleMongooseDao {
 
     async deleteOne (id) {
         try {
-            const role = await roleSchema.find({id: id});
-
-            if(!role) {
-                throw new Error('role not found') 
-            } 
             await roleSchema.deleteOne({id: id});
 
         } catch (error) {
