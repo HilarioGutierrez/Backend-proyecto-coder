@@ -9,7 +9,7 @@ export const login = async (req, res, next) => {
         const userData = req.body;
         const data = await session.login(userData);
         
-        res.cookie('token', data.accessToken, 
+        res.cookie('userToken', data.accessToken, 
             {
                 maxAge: 60 * 60 * 1000,
                 httpOnly: true
