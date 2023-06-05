@@ -47,7 +47,7 @@ void (async () => {
   app.use(passport.session());
   
   // Listen app(express) on port 8080. HTTP server
-  const httpServer = app.listen(process.env.NODE_PORT, () => { console.log('Server running on port 8080') })
+  const httpServer = app.listen(process.env.NODE_PORT, () => { console.log(`Server running on port ${process.env.NODE_PORT}`) })
 })
 ()
 
