@@ -15,6 +15,7 @@ import initializePassport from './config/passport.config.js';
 
 
 dotenv.config()
+const app = express();
 
 // Connect to MongoDB
 void (async () => {
@@ -22,36 +23,33 @@ void (async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+  //Create a new express application instance
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+  //Cookies
+  app.use(cookieParser(process.env.SECRET_KEY));
+  
+  //Session
+  app.use(session({
+    store: MongoStore.create({ // Se crea la session en la base de datos
+      mongoUrl: process.env.MONGO_DB_URI,
+      ttl: 100
+    }),
+    secret: process.env.SECRET_KEY,
+    resave: false, // permite mantener la session activa mientras la session este inactiva
+    saveUninitialized: false, //permite guardar la sessin aunque el obj no tenga data
+  }))
+  
+  //Passport
+  initializePassport()
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  // Listen app(express) on port 8080. HTTP server
+  const httpServer = app.listen(process.env.NODE_PORT, () => { console.log('Server running on port 8080') })
 })
 ()
-//Create a new express application instance
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const PORT = 8080;
-
-//Cookies
-app.use(cookieParser(process.env.SECRET_KEY));
-
-//Session
-app.use(session({
-  store: MongoStore.create({ // Se crea la session en la base de datos
-    mongoUrl: process.env.MONGO_DB_URI,
-    ttl: 100
-  }),
-  secret: process.env.SECRET_KEY,
-  resave: false, // permite mantener la session activa mientras la session este inactiva
-  saveUninitialized: false, //permite guardar la sessin aunque el obj no tenga data
-}))
-
-//Passport
-initializePassport()
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Listen app(express) on port 8080. HTTP server
-const httpServer = app.listen(PORT, () => { console.log('Server running on port 8080') })
 
 app.use('/', router);
 
