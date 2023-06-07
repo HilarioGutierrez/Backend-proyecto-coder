@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { login, logout, singup } from "../../controllers/sessionController.js";
+import { current, login, logout, singup } from "../../controllers/sessionController.js";
 import passport from "passport";
+import auth from "../../middlewares/auth.js";
+import authorization from "../../middlewares/authorization.js";
 
 const sessionRouter = Router();
 
 sessionRouter.post('/login', login );
-sessionRouter.post('/logout', logout );
+sessionRouter.post('/logout', auth, logout );
 sessionRouter.post('/singup', singup );
+sessionRouter.get('/current', auth,authorization("admin"), current );
 
 //sessionRouter.post('/login2', passport.authenticate('login2', {failureRedirect: '/api/sessions/fail'}), login2)
 //sessionRouter.post('/register', passport.authenticate('register', {failureRedirect: '/api/sessions/fail'}), register)
@@ -26,3 +29,4 @@ const githubPassport = () =>{
 //githubPassport()
 
 export default sessionRouter
+
