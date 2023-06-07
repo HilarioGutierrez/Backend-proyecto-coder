@@ -33,7 +33,6 @@ class cartManager {
       // If product already exists, increase its quantity
       cart.products[cartProductIndex].quantity += 1
     } else {
-      console.log(product.id);
 
       cart.products.push( product.id);
 
