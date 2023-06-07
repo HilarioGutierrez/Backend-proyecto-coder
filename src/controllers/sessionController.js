@@ -55,6 +55,12 @@ export const singup = async (req, res, next) => {
     }
 };
 
+export const current = async (req, res, next) => {
+
+    res.status(200).send({message: 'success', user: req.user});
+    next();
+};
+
 // export const login2 = async (req, res) =>
 // {
 //     if(!req.user) return res.status(400).send({ status: 'error', message: 'Invalid credentials'});
