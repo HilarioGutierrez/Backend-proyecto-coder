@@ -9,22 +9,22 @@ const userSchema = new Schema({
     lastName: { type: Schema.Types.String, required: true },
     email: { type: Schema.Types.String, required: true, unique: true },
     age: { type: Schema.Types.Number, required: true },
-    password: { type: Schema.Types.String,required: true },
-    cart: { type: Schema.Types.ObjectId, ref: 'carts', required: true },
-    roles: [{ type: Schema.Types.ObjectId, ref: 'roles', index: true, default:'client'}]
+    isAdmin: { type: Schema.Types.Boolean, required: true, default: false },
+    cart: { type: Schema.Types.ObjectId, ref: 'carts'},
+    permissions: [{ type: Schema.Types.ObjectId, ref: 'roles', index: true }],
+    password: { type: Schema.Types.String,required: true }
 });
 
 userSchema.plugin(mongoosePaginate);
 
-userSchema.pre('paginate',function(){
-    this.populate('roles');
-    this.populate('carts');
-})
+userSchema.pre('find', function(next) {
+    this.populate('permissions');
+    next();
+});
 
-userSchema.pre('getOne',function(){
-    this.populate('roles');
-    this.populate('carts');
-})
-
+userSchema.pre('findOne', function(next) {
+    this.populate('permissions');
+    next();
+});
 
 export default mongoose.model(userCollection, userSchema);

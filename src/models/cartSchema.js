@@ -9,7 +9,11 @@ const cartSchema = new mongoose.Schema({
     products: [{type:Schema.Types.ObjectId, ref: "products", default: [], required: true}]
 });
 
-cartSchema.pre('getAll', function() {
+cartSchema.pre('find', function() {
+    this.populate('products');
+})
+
+cartSchema.pre('findOne', function() {
     this.populate('products');
 })
 
