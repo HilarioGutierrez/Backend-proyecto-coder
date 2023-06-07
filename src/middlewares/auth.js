@@ -14,7 +14,17 @@ const auth = (req, res, next) =>
     jwt.verify(token, process.env.PRIVATE_KEY, (error, credentials) =>{
         if(error) return res.status(403).send({ error: 'Authentication error'});
 
-        req.user = credentials.user;
+        const iatDate = new Date(credentials.iat * 1000);
+        const iatFormated = `${iatDate.getDate()}/${iatDate.getMonth()}/${iatDate.getFullYear()} ${iatDate.getHours()}:${iatDate.getMinutes()}:${iatDate.getSeconds()}`;
+        const expDate = new Date(credentials.exp * 1000);
+        const expFormated = `${expDate.getDate()}/${expDate.getMonth()}/${expDate.getFullYear()} ${expDate.getHours()}:${expDate.getMinutes()}:${expDate.getSeconds()}`;
+
+        const user = {
+            ...credentials,
+            iat: iatFormated,
+            exp: expFormated,
+        }
+        req.user = user;
         next();
     });
 }
