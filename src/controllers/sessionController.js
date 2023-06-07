@@ -57,8 +57,13 @@ export const singup = async (req, res, next) => {
 
 export const current = async (req, res, next) => {
 
-    res.status(200).send({message: 'success', user: req.user});
-    next();
+    try {
+        res.status(200).send({message: 'success', user: req.user});
+        next();
+        
+    } catch (e) {
+        next(e);
+    }
 };
 
 // export const login2 = async (req, res) =>
