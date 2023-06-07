@@ -1,6 +1,7 @@
 import { generateToken } from "../utils/generateToken.js";
 import { creatHash, isValidPassword } from "../utils/passwardHash.js";
-import { singupValidation, userValidation } from "../validations/user/userValidation.js";
+import { singupValidation } from "../validations/session/singupValidation.js";
+import { userCreateValidation } from "../validations/user/userCreateValidation.js";
 import userManager from "./userManager.js";
 
 const manager = new userManager();
@@ -11,7 +12,7 @@ class sessionManager {
 
 async singup(user) {
     const dto = {...user, password: await creatHash(user.password,10)};
-    userValidation.parse(dto);
+    userCreateValidation.parse(dto);
 
     const newUser = await manager.create(dto);
 
@@ -29,8 +30,9 @@ async login(userData){
     if(!isHashedPassword){
         return {message: 'error', error: 'Invalid credentials'};
     }
-    const accessToken = await generateToken(user); // genera token de acceso JWT
-    return {message: 'success', accessToken};
+    const accessToken = generateToken(user); // genera token de acceso JWT
+    const data = { ...user, password: undefined, accessToken}
+    return {message: 'success',data};
 }
 
 }
