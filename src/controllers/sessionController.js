@@ -24,9 +24,10 @@ export const login = async (req, res, next) => {
 //Logout user. Destroy session.
 export const logout = async (req, res, next) => {
     try {
+        const user = req.user.email
         req.session.destroy(err =>{
             if(!err){
-                res.status(200).send({message: 'Logout ok!'});
+                res.status(200).send({message: `Logout ${user}`});
             }else{
                 res.status(500).send({message: 'error', error: err.message});
             }
