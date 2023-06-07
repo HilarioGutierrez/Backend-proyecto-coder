@@ -5,14 +5,14 @@ import authorization from "../../middlewares/authorization.js";
 
 const roleRouter = new Router();
 
-roleRouter.get('/', auth, list);
+roleRouter.get('/', auth, authorization('admin'), list);
 
-roleRouter.get('/:id', auth, getOne);
+roleRouter.get('/:id', auth, authorization('admin'), getOne);
 
-roleRouter.post('/', auth, create);
+roleRouter.post('/', auth, authorization('admin'), create);
 
-roleRouter.put('/:id', auth, updateOne);
+roleRouter.put('/:id', auth, authorization('admin'), updateOne);
 
-roleRouter.delete('/:id', auth, deleteOne);
+roleRouter.delete('/:id', auth, authorization('admin'), deleteOne);
 
 export default roleRouter
