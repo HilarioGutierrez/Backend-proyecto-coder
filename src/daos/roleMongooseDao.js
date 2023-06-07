@@ -1,11 +1,11 @@
-import roleSchema from "../models/roleSchema.js";
+import rolesSchema from "../models/rolesSchema.js";
 
 class roleMongooseDao {
 
     async paginate (criteria) {
         const { limit, page } = criteria;
 
-        const roles = await roleSchema.paginate({},{limit: limit, page: page});
+        const roles = await rolesSchema.paginate({},{limit: limit, page: page});
         roles.docs= roles.docs.map(role => {
             return {
                 id: role?._id,
@@ -18,7 +18,7 @@ class roleMongooseDao {
 
     async getOne (id) {
         try {
-            const role = await roleSchema.findOne({id: id});
+            const role = await rolesSchema.findOne({id: id});
             
             if(!role) {
                 throw new Error('role not found')
@@ -38,7 +38,7 @@ class roleMongooseDao {
     
     async create (role) {
         try {
-            const newrole = await roleSchema.create(role);
+            const newrole = await rolesSchema.create(role);
             return {
                 id: role?._id,
                 firstName: role?.firstName,
@@ -52,7 +52,7 @@ class roleMongooseDao {
 
     async updateOne (id, data) {
         try {
-            const role = await roleSchema.findOneAndUpdate( {id: id}, data, {new: true} );
+            const role = await rolesSchema.findOneAndUpdate( {id: id}, data, {new: true} );
 
             if(!role) {
                 throw new Error('role not found');
@@ -71,7 +71,7 @@ class roleMongooseDao {
 
     async deleteOne (id) {
         try {
-            await roleSchema.deleteOne({id: id});
+            await rolesSchema.deleteOne({_id: id});
 
         } catch (error) {
             console.log({error: error.message});
