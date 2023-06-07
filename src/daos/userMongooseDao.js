@@ -1,4 +1,6 @@
 import userSchema from "../models/userSchema.js";
+import { creatHash } from "../utils/passwardHash.js";
+import { userCreateValidation } from "../validations/user/userCreateValidation.js";
 
 class userMongooseDao {
 
@@ -13,7 +15,10 @@ class userMongooseDao {
                 lastName: user.lastName,
                 email: user.email,
                 age: user.age,
-                password: user.password
+                password: user.password,
+                cart: user.cart,
+                isAdmin: user.isAdmin,
+                roles: user.roles
 
             }
         });
@@ -34,7 +39,9 @@ class userMongooseDao {
                 lastName: user.lastName,
                 email: user.email,
                 age: user.age,
-                password: user.password
+                password: user.password,
+                cart: newUser.cart,
+                roles: newUser.roles
             }
         } catch (error) {
             console.log({error: error.message});
@@ -56,7 +63,10 @@ class userMongooseDao {
                 lastName: user.lastName,
                 email: user.email,
                 age: user.age,
-                password: user.password
+                password: user.password,
+                cart: user.cart,
+                roles: user.roles,
+                isAdmin: user.isAdmin
             }
         } catch (error) {
             console.log({error: error.message});
@@ -66,12 +76,17 @@ class userMongooseDao {
     //Create one user
     async create (user) {
         try {
-            const newUser = await userSchema.create(user);
+            const dto = {...user, password: await creatHash(user.password,10)};
+            userCreateValidation.parse(dto);
+            const newUser = await userSchema.create(dto);
             return {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 email: newUser.email,
                 age: newUser.age,
+                cart: newUser.cart,
+                isAdmin: newUser.isAdmin,
+                roles: newUser.roles
             }
         } catch (error) {
             console.log({error: error.message});
@@ -91,6 +106,8 @@ class userMongooseDao {
                 lastName: user.lastName,
                 email: user.email,
                 age: user.age,
+                cart: user.cart,
+                roles: user.roles
             }
             console.log({user: userNew});
             return userNew
