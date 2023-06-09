@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import productManager from '../../manager/productManager.js'
+import productManager from '../../../domain/manager/productManager.js'
 // import { socketServer } from '../../app.js'
 
 const realTimeProductsRouter = Router()

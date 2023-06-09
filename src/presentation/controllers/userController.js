@@ -1,4 +1,4 @@
-import userManager from "../manager/userManager.js";
+import userManager from "../../domain/manager/userManager.js";
 
 const manager = new userManager();
 
