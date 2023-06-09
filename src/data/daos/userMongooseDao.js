@@ -1,6 +1,6 @@
-import userSchema from "../models/userSchema.js";
-import { creatHash } from "../utils/passwardHash.js";
-import { userCreateValidation } from "../validations/user/userCreateValidation.js";
+import userSchema from "../../data/models/userSchema.js";
+import { creatHash } from "../../domain/utils/passwardHash.js";
+import { userCreateValidation } from "../../domain/validations/user/userCreateValidation.js";
 
 class userMongooseDao {
 

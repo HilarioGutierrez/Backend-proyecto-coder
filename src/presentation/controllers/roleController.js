@@ -1,4 +1,4 @@
-import roleManager from "../manager/roleManager.js";
+import roleManager from "../../domain/manager/roleManager.js";
 
 const manager = new roleManager();
 

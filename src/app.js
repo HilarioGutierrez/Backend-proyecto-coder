@@ -4,7 +4,7 @@ import session from 'express-session';
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 
-import router from './routes/index.js';
+import router from './presentation/routes/index.js';
 
 import { resolve } from 'path'
 import { Server } from 'socket.io'
@@ -12,7 +12,7 @@ import { engine } from 'express-handlebars'
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
-import errorHandler from './middlewares/errorHandler.js';
+import errorHandler from './presentation/middlewares/errorHandler.js';
 
 
 dotenv.config()

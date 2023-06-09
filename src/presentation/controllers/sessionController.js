@@ -1,5 +1,5 @@
-import sessionManager from "../manager/sessionManager.js";
-import userManager from "../manager/userManager.js";
+import sessionManager from "../../domain/manager/sessionManager.js";
+import userManager from "../../domain/manager/userManager.js";
 
 const manager = new userManager();
 const session = new sessionManager();

@@ -1,4 +1,4 @@
-import productManager from "../manager/productManager.js";
+import productManager from "../../domain/manager/productManager.js";
 
 const manager = new productManager();
 

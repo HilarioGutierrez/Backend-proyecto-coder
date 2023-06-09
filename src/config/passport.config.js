@@ -1,8 +1,6 @@
 import passport from "passport";
-import local from "passport-local";
 import GitHubStrategy from "passport-github2";
-import {creatHash, isValidPassword} from "../utils/passwardHash.js";
-import userManager from "../manager/userManager.js";
+import userManager from "../domain/manager/userManager.js";
 import dotenv from "dotenv";
 dotenv.config();
 
