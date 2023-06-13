@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import AppExpress from './presentation/application/appExpress.js'
+import appFactory from './presentation/factory/appFactory.js'
 
 dotenv.config()
 
@@ -12,7 +12,7 @@ void (async () =>
     useUnifiedTopology: true
   }) 
   
-  const app = new AppExpress();
+  const app = appFactory.create(process.env.APPLICATION);
   
   app.init();
   app.build();
