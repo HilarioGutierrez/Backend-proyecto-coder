@@ -6,12 +6,12 @@ const addUser = new Command('addUser');
 addUser
 .version('0.0.1')
 .description('Add a new user')
-.option('fn, --firstName <firstName>', 'First name')
-.option('ln, --lastName <lastName>', 'Last name')
-.option('e, --email <email>', 'Email')
-.option('a, --age <age>', 'Age')
-.option('p, --password <password>', 'Password')
-.option('ia, --isAdmin <isAdmin>', 'Is admin')
+.option('-fn, --firstName <firstName>', 'First name')
+.option('-ln, --lastName <lastName>', 'Last name')
+.option('-e, --email <email>', 'Email')
+.option('-a, --age <age>', 'Age')
+.option('-p, --password <password>', 'Password')
+.option('-ia, --isAdmin <isAdmin>', 'Is admin')
 .action(async (env) =>
 {
     const payload = {
