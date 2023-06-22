@@ -22,7 +22,7 @@ async singup(user) {
 async login(userData){
 
     const { email, password } = userData;
-    singupValidation.parse({ email, password });
+    singupValidation.parseAsync({ email, password });
 
     const user = await manager.getOneByEmail(email);
     const isHashedPassword = await isValidPassword(password,user.password); // compara constraseña encriptada con la que se envia en el body
