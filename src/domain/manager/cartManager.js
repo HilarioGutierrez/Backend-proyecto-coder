@@ -1,10 +1,11 @@
-import cartMongooseDao from '../../data/daos/cartsMongooseDao.js'
-import productsMongooseDao from '../../data/daos/productsMongooseDao.js'
+import cartMongooseRepository from '../../data/repositories/cartsMongooseRepository.js'
+import productsMongooseRepository from '../../data/repositories/productsMongooseRepository.js'
+import container from '../../shared/container.js'
 
 class cartManager {
   constructor () {
-    this.cartDao = new cartMongooseDao()
-    this.productDao = new productsMongooseDao()
+    this.cartDao = container.resolve('cartRepository')
+    this.productDao = container.resolve('productsRepository')
   }
 
   async create () {

@@ -1,9 +1,9 @@
-import roleMongooseDao from '../../data/daos/roleMongooseDao.js';
+import container from '../../shared/container.js';
 
 class roleManager {
 
     constructor() {
-        this.rolesDao = new roleMongooseDao();
+        this.rolesDao = container.resolve('roleRepository');
     }
 
     async getOne(id) {

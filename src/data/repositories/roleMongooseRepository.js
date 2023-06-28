@@ -1,6 +1,6 @@
 import rolesSchema from "../models/rolesSchema.js";
 
-class roleMongooseDao {
+class roleMongooseRepository {
 
     async paginate (criteria) {
         const { limit, page } = criteria;
@@ -79,4 +79,4 @@ class roleMongooseDao {
     }
 }
 
-export default roleMongooseDao;
+export default roleMongooseRepository;

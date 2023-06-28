@@ -1,8 +1,8 @@
-import userSchema from "../../data/models/userSchema.js";
+import userSchema from "../models/userSchema.js";
 import { creatHash } from "../../domain/utils/passwardHash.js";
 import { userCreateValidation } from "../../domain/validations/user/userCreateValidation.js";
 
-class userMongooseDao {
+class userMongooseRepository {
 
     //paginate: filter for view users 
     async paginate (criteria) {
@@ -131,4 +131,4 @@ class userMongooseDao {
     }
 }
 
-export default userMongooseDao;
+export default userMongooseRepository;

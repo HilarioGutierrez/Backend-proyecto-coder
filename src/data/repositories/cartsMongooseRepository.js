@@ -1,6 +1,6 @@
 import cartSchema from "../models/cartSchema.js";
 
-class cartMongooseDao {
+class cartMongooseRepository {
 
 // addProduct to cart -- delete cart
 
@@ -33,4 +33,4 @@ class cartMongooseDao {
     }
 }
 
-export default cartMongooseDao;
+export default cartMongooseRepository;

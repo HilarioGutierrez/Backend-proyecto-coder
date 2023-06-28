@@ -1,6 +1,6 @@
 import productSchema from "../models/productSchema.js";
 
-class productsMongooseDao {
+class productsMongooseRepository {
 
     async find(query)
     {
@@ -94,4 +94,4 @@ class productsMongooseDao {
     }
 }
 
-export default productsMongooseDao;
+export default productsMongooseRepository;

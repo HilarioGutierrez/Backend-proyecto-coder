@@ -7,7 +7,7 @@ dotenv.config();
 export const nodemailerConfig = async (req, res, next) => {
     
     try {
-        const { to, subject,name } = req.body;
+        const { to, subject, name } = req.body;
         
         const body =     `
         <h1>Hi ${name}</h1>
@@ -38,6 +38,6 @@ export const nodemailerConfig = async (req, res, next) => {
 
         res.status(200).json({ message: 'Mail sent successfully' });
     } catch (error) {
-        // Manejar el error
+        throw new Error(error);
     }
 }

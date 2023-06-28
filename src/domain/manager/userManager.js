@@ -1,9 +1,9 @@
-import userMongooseDao from '../../data/daos/userMongooseDao.js'
+import userMongooseRepository from '../../data/repositories/userMongooseRepository.js'
 
 class userManager {
 
     constructor() {
-        this.userDao = new userMongooseDao();
+        this.userDao = new userMongooseRepository();
     }
 
     async getOne(email) {

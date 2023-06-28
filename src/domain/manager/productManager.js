@@ -1,9 +1,10 @@
-import productsMongooseDao from '../../data/daos/productsMongooseDao.js';
+import productsMongooseRepository from '../../data/repositories/productsMongooseRepository.js';
+import container from '../../shared/container.js';
 
 class productManager {
 
     constructor() {
-        this.productDao = new productsMongooseDao();
+        this.productDao = container.resolve('productsRepository');
     }
 
     //Get products.
