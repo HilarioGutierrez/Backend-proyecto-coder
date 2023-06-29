@@ -3,27 +3,27 @@ import container from '../../shared/container.js';
 class roleManager {
 
     constructor() {
-        this.rolesDao = container.resolve('roleRepository');
+        this.rolesRepository = container.resolve('roleRepository');
     }
 
     async getOne(id) {
-        return this.rolesDao.getOne(id);
+        return this.rolesRepository.getOne(id);
     }
 
     async create(role) {
-        return this.rolesDao.create(role);
+        return this.rolesRepository.create(role);
     }
 
     async paginate(criteria) {
-        return this.rolesDao.paginate(criteria);
+        return this.rolesRepository.paginate(criteria);
     }
 
     async deleteOne(id) {
-        return this.rolesDao.deleteOne(id);
+        return this.rolesRepository.deleteOne(id);
     }
 
     async updateOne(id, data) {
-        return this.rolesDao.updateOne(id, data);
+        return this.rolesRepository.updateOne(id, data);
     }
 }
 

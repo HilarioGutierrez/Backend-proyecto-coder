@@ -4,29 +4,29 @@ import container from '../../shared/container.js';
 class productManager {
 
     constructor() {
-        this.productDao = container.resolve('productsRepository');
+        this.productRepository = container.resolve('productsRepository');
     }
 
     //Get products.
     async find(query) 
     {
-    return this.productDao.find(query);
+    return this.productRepository.find(query);
     }
 
     async getOne(id){
-        return this.productDao.getOne(id);
+        return this.productRepository.getOne(id);
     }
 
     async add(product){
-        return this.productDao.add(product);
+        return this.productRepository.add(product);
     }
 
     async updateOne(id, data){
-        return this.productDao.updateOne(id, data);
+        return this.productRepository.updateOne(id, data);
     }
 
     async deleteOne(id){
-        return this.productDao.deleteOne(id);
+        return this.productRepository.deleteOne(id);
     }
 
 }

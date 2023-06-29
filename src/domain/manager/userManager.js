@@ -3,31 +3,31 @@ import userMongooseRepository from '../../data/repositories/userMongooseReposito
 class userManager {
 
     constructor() {
-        this.userDao = new userMongooseRepository();
+        this.userRepository = new userMongooseRepository();
     }
 
     async getOne(email) {
-        return this.userDao.getOne(email);
+        return this.userRepository.getOne(email);
     }
 
     async getOneByEmail(email) {
-        return this.userDao.getOneByEmail(email);
+        return this.userRepository.getOneByEmail(email);
     }
 
     async create(user) {
-        return this.userDao.create(user);
+        return this.userRepository.create(user);
     }
 
     async paginate(criteria) {
-        return this.userDao.paginate(criteria);
+        return this.userRepository.paginate(criteria);
     }
 
     async deleteOne(email) {
-        return this.userDao.deleteOne(email);
+        return this.userRepository.deleteOne(email);
     }
 
     async updateOne(email, user) {
-        return this.userDao.updateOne(email, user);
+        return this.userRepository.updateOne(email, user);
     }
 }
 

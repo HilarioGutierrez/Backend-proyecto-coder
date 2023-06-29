@@ -1,3 +1,4 @@
+import Role from "../../domain/entities/role.js";
 import rolesSchema from "../models/rolesSchema.js";
 
 class roleMongooseRepository {
@@ -5,30 +6,31 @@ class roleMongooseRepository {
     async paginate (criteria) {
         const { limit, page } = criteria;
 
-        const roles = await rolesSchema.paginate({},{limit: limit, page: page});
-        roles.docs= roles.docs.map(role => {
-            return {
-                id: role?._id,
-                firstName: role?.firstName,
-                permissions: role?.permissions,
-            }
-        });
-        return roles;
+        const roleDocuments = await rolesSchema.paginate({},{limit: limit, page: page});
+        const { docs, ...pagination } = roleDocuments
+
+        const role = docs.map(document => new Role (
+            document._id,
+            document.name,
+            document.permissions,
+        ))
+
+        return {role, pagination};
     }
 
     async getOne (id) {
         try {
-            const role = await rolesSchema.findOne({id: id});
+            const document = await rolesSchema.findOne({id: id});
             
-            if(!role) {
+            if(!document) {
                 throw new Error('role not found')
             }
             
-            return{
-                id: role?._id,
-                firstName: role?.firstName,
-                permissions: role?.permissions,
-            }
+            return new Role(
+                document._id,
+                document.name,
+                document.permissions
+            )
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -39,11 +41,11 @@ class roleMongooseRepository {
     async create (role) {
         try {
             const newrole = await rolesSchema.create(role);
-            return {
-                id: role?._id,
-                firstName: role?.firstName,
-                permissions: role?.permissions,
-            }
+            return new Role(
+                newrole._id,
+                newrole.name,
+                newrole.permissions
+            )
         } catch (error) {
             console.log({error: error.message});
         }
@@ -57,12 +59,14 @@ class roleMongooseRepository {
             if(!role) {
                 throw new Error('role not found');
             }
-            const roleNew = {
-                id: role?._id,
-                firstName: role?.firstName,
-                permissions: role?.permissions,
-            }
+            const roleNew = new Role(
+                role._id,
+                role.name,
+                role.permissions
+            )
+
             return roleNew
+            
         } catch (error) {
             console.log({error: error.message});
         }

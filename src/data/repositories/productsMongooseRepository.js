@@ -1,3 +1,4 @@
+import Product from "../../domain/entities/product.js";
 import productSchema from "../models/productSchema.js";
 
 class productsMongooseRepository {
@@ -7,19 +8,20 @@ class productsMongooseRepository {
         try {
             const { status, limit, page } = query;
             const productsDocument = await productSchema.paginate({status},{ limit , page });
-                productsDocument.docs.map(p => ({
-                id: p._id,
-                title: p.title,
-                description: p.description,
-                price: p.price,
-                thumbnail: p.thumbnail,
-                code: p.code,
-                stock: p.stock,
-                status: p.status,
-                category: p.category
-            }))
+            const { docs, ...pagination } = productsDocument
+            const product = productsDocument.docs.map(p => new Product (
+                p._id,
+                p.title,
+                p.description,
+                p.price,
+                p.thumbnail,
+                p.code,
+                p.stock,
+                p.status,
+                p.category
+            ))
 
-            return productsDocument
+            return { product, pagination }
 
         } catch (error) {
             console.log(error);
@@ -29,69 +31,71 @@ class productsMongooseRepository {
     async getOne (id) {
 
         const product = await productSchema.findOne({_id:id});
-        return {
-            id: product._id,
-            title: product.title,
-            description: product.description,
-            price: product.price,
-            thumbnail: product.thumbnail,
-            code: product.code,
-            stock: product.stock,
-            status: product.status,
-            category: product.category
-        }
+        return new Product (
+            product._id,
+            product.title,
+            product.description,
+            product.price,
+            product.thumbnail,
+            product.code,
+            product.stock,
+            product.status,
+            product.category
+        )
 
     }
 
     async add (data) {
 
         const newProduct = await productSchema.create(data);
-        return {
-            id: newProduct._id,
-            title: newProduct.title,
-            description: newProduct.description,
-            price: newProduct.price,
-            thumbnail: newProduct.thumbnail,
-            code: newProduct.code,
-            stock: newProduct.stock,
-            status: newProduct.status,
-            category: newProduct.category
-        }
+        return new Product (
+            newProduct._id,
+            newProduct.title,
+            newProduct.description,
+            newProduct.price,
+            newProduct.thumbnail,
+            newProduct.code,
+            newProduct.stock,
+            newProduct.status,
+            newProduct.category
+        )
     }
 
     async updateOne (id, data) {
     
             const product = await productSchema.findOneAndUpdate({_id:id}, data);
-            return {
-                id: product._id,
-                title: product.title,
-                description: product.description,
-                price: product.price,
-                thumbnail: product.thumbnail,
-                code: product.code,
-                stock: product.stock,
-                status: product.status,
-                category: product.category
-            }
+            return new Product (
+                product._id,
+                product.title,
+                product.description,
+                product.price,
+                product.thumbnail,
+                product.code,
+                product.stock,
+                product.status,
+                product.category
+            )
     }
 
     async deleteOne (id) {
         const product = await productSchema.findOneAndDelete({_id:id});
+        const productDeleted = new Product (
+            product._id,
+            product.title,
+            product.description,
+            product.price,
+            product.thumbnail,
+            product.code,
+            product.stock,
+            product.status,
+            product.category
+        );
         return {
             "message": "Product deleted",
-            "product": {
-                id: product._id,
-                title: product.title,
-                description: product.description,
-                price: product.price,
-                thumbnail: product.thumbnail,
-                code: product.code,
-                stock: product.stock,
-                status: product.status,
-                category: product.category
+            "product": productDeleted
+                
             }
         }
-    }
 }
 
 export default productsMongooseRepository;

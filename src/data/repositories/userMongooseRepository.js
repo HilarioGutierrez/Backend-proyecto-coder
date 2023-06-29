@@ -1,6 +1,7 @@
 import userSchema from "../models/userSchema.js";
 import { creatHash } from "../../domain/utils/passwardHash.js";
 import { userCreateValidation } from "../../domain/validations/user/userCreateValidation.js";
+import User from "../../domain/entities/user.js";
 
 class userMongooseRepository {
 
@@ -8,21 +9,21 @@ class userMongooseRepository {
     async paginate (criteria) {
         const { limit, page } = criteria;
 
-        const users = await userSchema.paginate({},{limit: limit, page: page});
-        users.docs= users.docs.map(user => {
-            return {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                age: user.age,
-                password: user.password,
-                cart: user.cart,
-                isAdmin: user.isAdmin,
-                roles: user.roles
+        const usersDocuments = await userSchema.paginate({},{limit: limit, page: page});
+        const { docs, ...pagination } = usersDocuments
 
-            }
-        });
-        return users;
+        const users= usersDocuments.docs.map(user => new User (
+            user._id.toString(),
+            user.firstName,
+            user.lastName,
+            user.email,
+            user.age,
+            user.cart,
+            user.roles,
+            user.isAdmin
+        ));
+        
+        return {users, pagination};
     }
 
     //Take one user by email and return
@@ -34,15 +35,16 @@ class userMongooseRepository {
                 throw new Error('User not found')
             }
             
-            return{
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                age: user.age,
-                password: user.password,
-                cart: newUser.cart,
-                roles: newUser.roles
-            }
+            return new User(
+                user._id.toString(),
+                user.firstName,
+                user.lastName,
+                user.email,
+                user.age,
+                user.cart,
+                user.roles
+
+            )
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -57,17 +59,16 @@ class userMongooseRepository {
                 throw new Error('User not found')
             }
             
-            return{
-                id: user._id.toString(),
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                age: user.age,
-                password: user.password,
-                cart: user.cart,
-                roles: user.roles,
-                isAdmin: user.isAdmin
-            }
+            return new User(
+                user._id.toString(),
+                user.firstName,
+                user.lastName,
+                user.email,
+                user.age,
+                user.cart,
+                user.roles
+
+            )
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -79,16 +80,18 @@ class userMongooseRepository {
             const dto = {...user, password: await creatHash(user.password,10)};
             userCreateValidation.parse(dto);
             const newUser = await userSchema.create(dto);
-            return {
-                firstName: newUser.firstName,
-                lastName: newUser.lastName,
-                email: newUser.email,
-                age: newUser.age,
-                cart: newUser.cart,
-                isAdmin: newUser.isAdmin,
-                roles: newUser.roles
-            }
-        } catch (error) {
+            
+                return new User(
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.age,
+                    user.cart,
+                    user.roles,
+                    user.isAdmin    
+                )
+
+            }catch (error) {
             console.log({error: error.message});
         }
     }
@@ -101,16 +104,16 @@ class userMongooseRepository {
             if(!user) {
                 throw new Error('User not found');
             }
-            const userNew = {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                age: user.age,
-                cart: user.cart,
-                roles: user.roles
-            }
-            console.log({user: userNew});
+            const userNew = new User(
+                user.firstName,
+                user.lastName,
+                user.email,
+                user.age,
+                user.cart,
+                user.roles,
+            )
             return userNew
+            
         } catch (error) {
             console.log({error: error.message});
         }

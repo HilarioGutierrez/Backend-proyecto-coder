@@ -1,0 +1,16 @@
+class Product {
+
+    constructor(props) {
+
+        this.title = props.title;
+        this.description = props.description;
+        this.price = props.price;
+        this.thumbnail = props.thumbnail;
+        this.code = props.code;
+        this.stock = props.stock;
+        this.status = props.status;
+        this.category = props.category;
+    }
+}
+
+export default Product;

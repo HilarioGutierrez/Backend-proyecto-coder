@@ -1,3 +1,4 @@
+import Cart from "../../domain/entities/cart.js";
 import cartSchema from "../models/cartSchema.js";
 
 class cartMongooseRepository {
@@ -14,18 +15,18 @@ class cartMongooseRepository {
 
     async getOne (id) {
         const cart = await cartSchema.findOne( {_id:id} );
-        return {
-            id: cart._id,
-            products: cart.products
-        }
+        return new Cart (
+            cart._id,
+            cart.products
+        )
     }
 
     async updateOne (id, data) {
         const cart = await cartSchema.findOneAndUpdate( {_id:id}, data );
-        return {
-            id: cart._id,
-            products: cart.products
-        }
+        return new Cart (
+            cart._id,
+            cart.products
+        )
     }
 
     async deleteOne (id) {

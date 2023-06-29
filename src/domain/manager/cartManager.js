@@ -4,27 +4,27 @@ import container from '../../shared/container.js'
 
 class cartManager {
   constructor () {
-    this.cartDao = container.resolve('cartRepository')
-    this.productDao = container.resolve('productsRepository')
+    this.cartRepository = container.resolve('cartRepository')
+    this.productRepository = container.resolve('productsRepository')
   }
 
   async create () {
-    return this.cartDao.create()
+    return this.cartRepository.create()
   }
 
   async getAll () {
-    return this.cartDao.getAll()
+    return this.cartRepository.getAll()
   }
 
   async getOne (id) {
-    return this.cartDao.getOne(id)
+    return this.cartRepository.getOne(id)
   }
 
   async addProduct (cid, pid) {
-    const product = await this.productDao.getOne(pid)
+    const product = await this.productRepository.getOne(pid)
     if (!product) throw new Error(`Not found product with id: ${pid}`)
 
-    const cart = await this.cartDao.getOne(cid)
+    const cart = await this.cartRepository.getOne(cid)
     if (!cart) throw new Error(`Not found cart with id: ${cid}`)
 
     // Check if product already exists in cart
@@ -38,17 +38,17 @@ class cartManager {
 
     }
 
-    return this.cartDao.updateOne(cid, cart)
+    return this.cartRepository.updateOne(cid, cart)
   }
 
   async deleteOne (id) {
-    const cart = await this.cartDao.deleteOne(id)
+    const cart = await this.cartRepository.deleteOne(id)
     if (!cart) throw new Error(`Not found cart with id: ${id}`)
   }
 
   async delateProduct (cid, pid) {
     //get cart
-    const cart = await this.cartDao.getOne(cid);
+    const cart = await this.cartRepository.getOne(cid);
     //check if cart exists
     if (!cart) throw new Error(`Not found cart with id: ${cid}`)
 
@@ -61,19 +61,19 @@ class cartManager {
         cart.products.splice(cartProductIndex, 1);
       }
     }
-    return this.cartDao.updateOne(cid, cart);
+    return this.cartRepository.updateOne(cid, cart);
   }
 
   async updateQuantity (cid, pid, quantity) {
     try {
-      const cart = await this.cartDao.getOne(cid);
+      const cart = await this.cartRepository.getOne(cid);
       if (!cart) throw new Error(`Not found cart with id: ${cid}`)
 
     const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
     if (cartProductIndex !== -1) {
       cart.products[cartProductIndex].quantity = quantity;
     }
-    return this.cartDao.updateOne(cid, cart);
+    return this.cartRepository.updateOne(cid, cart);
 
     } catch (error) {
       console.log(error.message);
