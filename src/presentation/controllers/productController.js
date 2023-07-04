@@ -74,8 +74,8 @@ export const getOne = async (req, res) => {
     }
 }
 
-//add product. Validate porps with productSchema
-export const add = async (req, res) => {
+//create product. Validate porps with productSchema
+export const create = async (req, res) => {
     try {
         const product = req.body;
 
@@ -86,8 +86,9 @@ export const add = async (req, res) => {
         if ( !title || !description || !price || !code || !category|| !stock || !thumbnail) {
             throw new Error('Invalid data');
             }
-            const newProduct = await manager.add(product);
-            res.status(200).send({message: 'Product Added', payload: newProduct});
+            const newProduct = await manager.create(product);
+            //console.log(newProduct);
+            res.status(200).send({message: 'Product Added', payload: {... newProduct}});
             
     } catch (error) {
         res.status(400).send({error:error.message});

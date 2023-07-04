@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { add, deleteOne, find, getOne, updateOne } from "../../controllers/productController.js";
+import { create, deleteOne, find, getOne, updateOne } from "../../controllers/productController.js";
 
 const productRouter = Router();
 
@@ -10,7 +10,7 @@ productRouter.get('/', find );
 productRouter.get('/:pid', getOne );
 
 //PUT products at productManager
-productRouter.post('/', add );
+productRouter.post('/', create );
 
 //PUT products at productManager. Req.params.pid is the id of the product to update
 productRouter.put('/:pid', updateOne);

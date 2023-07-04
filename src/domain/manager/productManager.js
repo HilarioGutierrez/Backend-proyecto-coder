@@ -1,4 +1,3 @@
-import productsMongooseRepository from '../../data/repositories/productsMongooseRepository.js';
 import container from '../../shared/container.js';
 
 class productManager {
@@ -17,8 +16,8 @@ class productManager {
         return this.productRepository.getOne(id);
     }
 
-    async add(product){
-        return this.productRepository.add(product);
+    async create(product){
+        return this.productRepository.create(product);
     }
 
     async updateOne(id, data){
