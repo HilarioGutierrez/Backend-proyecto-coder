@@ -1,4 +1,5 @@
 import cartManager from '../../domain/manager/cartManager.js'
+import { productStockValidation } from '../../domain/validations/product/productValidation.js'
 
 const manager = new cartManager()
 
@@ -40,7 +41,8 @@ export const addProduct = async (req, res,next) => {
     const cid = req.params.cid;
     const pid = req.params.pid;
     const cart = await manager.addProduct(cid, pid);
-    res.status(200).send({ message: 'Product added' });
+    
+    res.status(200).send({ message: 'Product added', payload: cart });
   } catch (e) {
     next(e)
     console.log("error del carrito.",e.message);

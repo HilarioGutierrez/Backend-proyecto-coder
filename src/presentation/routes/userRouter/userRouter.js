@@ -7,13 +7,13 @@ const userRouter = new Router();
 
 userRouter.get('/:email', auth, authorization('getUser'), getOne);
 
-userRouter.get('/',auth, list);
+userRouter.get('/', auth, list);
 
-userRouter.post('/',auth, create);
+userRouter.post('/', auth, create);
 
-userRouter.put('/:email',auth, updateOne);
+userRouter.put('/:email', auth, updateOne);
 
-userRouter.delete('/:email',auth, deleteOne);
+userRouter.delete('/:email', auth, deleteOne);
 
 //userRouter.post('/:email/:role', authorization('addRole'), addRole); //hacer addRole que agregue el ID del roll al array de roles del usuario. verificando si el usuario es "admin" o no. si no es "admin" es "user"
 

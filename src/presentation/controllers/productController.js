@@ -14,17 +14,6 @@ export const find = async (req, res) => {
     try {
         
         const products = await manager.find(query);
-        const productsDocs = products.docs.map(p => ({
-            id: p._id,
-            title: p.title,
-            description: p.description,
-            price: p.price,
-            thumbnail: p.thumbnail,
-            code: p.code,
-            stock: p.stock,
-            status: p.status,
-            category: p.category
-        }))
 
         // function to order by price
         const orderByPrice = (products, order) => {
@@ -38,7 +27,7 @@ export const find = async (req, res) => {
             return sortedProducts;
         }
 
-        orderByPrice(productsDocs, query.sort);
+        orderByPrice(products.docs, query.sort);
 
         // Object whit pagination data
         const pagination = { 
@@ -52,13 +41,12 @@ export const find = async (req, res) => {
             nextLink: products.nextLink
         }
         
-        res.status(200).send({message: 'success', payload: productsDocs, pagination: pagination })
+        res.status(200).send({message: 'success', payload: products.docs, pagination: pagination })
         
     } catch (error) {
         res.status(500).send({message: 'error', error: error.message});
         throw new Error(error);
     }
-
 
 }
 

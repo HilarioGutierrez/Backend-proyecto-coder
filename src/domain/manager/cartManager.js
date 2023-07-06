@@ -1,5 +1,3 @@
-import cartMongooseRepository from '../../data/repositories/cartsMongooseRepository.js'
-import productsMongooseRepository from '../../data/repositories/productsMongooseRepository.js'
 import container from '../../shared/container.js'
 
 class cartManager {
@@ -21,24 +19,7 @@ class cartManager {
   }
 
   async addProduct (cid, pid) {
-    const product = await this.productRepository.getOne(pid)
-    if (!product) throw new Error(`Not found product with id: ${pid}`)
-
-    const cart = await this.cartRepository.getOne(cid)
-    if (!cart) throw new Error(`Not found cart with id: ${cid}`)
-
-    // Check if product already exists in cart
-    const cartProductIndex = cart.products.findIndex(cartProduct => cartProduct.id.toString() === pid);
-    if (cartProductIndex !== -1) {
-      // If product already exists, increase its quantity
-      cart.products[cartProductIndex].quantity += 1
-    } else {
-
-      cart.products.push( product.id);
-
-    }
-
-    return this.cartRepository.updateOne(cid, cart)
+    return this.cartRepository.addProduct(cid, pid)
   }
 
   async deleteOne (id) {

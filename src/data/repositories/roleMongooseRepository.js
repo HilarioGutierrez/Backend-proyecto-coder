@@ -9,11 +9,11 @@ class roleMongooseRepository {
         const roleDocuments = await rolesSchema.paginate({},{limit: limit, page: page});
         const { docs, ...pagination } = roleDocuments
 
-        const role = docs.map(document => new Role (
-            document._id,
-            document.name,
-            document.permissions,
-        ))
+        const role = docs.map(document => new Role ({
+            id:document._id,
+            name:document.name,
+            permissions:document.permissions
+        }))
 
         return {role, pagination};
     }
@@ -26,11 +26,11 @@ class roleMongooseRepository {
                 throw new Error('role not found')
             }
             
-            return new Role(
-                document._id,
-                document.name,
-                document.permissions
-            )
+            return new Role({
+                id:document._id,
+                name:document.name,
+                permissions:document.permissions
+            })
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -40,12 +40,12 @@ class roleMongooseRepository {
     
     async create (role) {
         try {
-            const newrole = await rolesSchema.create(role);
-            return new Role(
-                newrole._id,
-                newrole.name,
-                newrole.permissions
-            )
+            const document = await rolesSchema.create(role);
+            return new Role({
+                id:document._id,
+                name:document.name,
+                permissions:document.permissions
+            })
         } catch (error) {
             console.log({error: error.message});
         }
@@ -54,16 +54,16 @@ class roleMongooseRepository {
 
     async updateOne (id, data) {
         try {
-            const role = await rolesSchema.findOneAndUpdate( {id: id}, data, {new: true} );
+            const document = await rolesSchema.findOneAndUpdate( {id: id}, data, {new: true} );
 
-            if(!role) {
+            if(!document) {
                 throw new Error('role not found');
             }
-            const roleNew = new Role(
-                role._id,
-                role.name,
-                role.permissions
-            )
+            const roleNew = new Role({
+                id:document._id,
+                name:document.name,
+                permissions:document.permissions
+            })
 
             return roleNew
             

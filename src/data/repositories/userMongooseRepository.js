@@ -12,16 +12,17 @@ class userMongooseRepository {
         const usersDocuments = await userSchema.paginate({},{limit: limit, page: page});
         const { docs, ...pagination } = usersDocuments
 
-        const users= usersDocuments.docs.map(user => new User (
-            user._id.toString(),
-            user.firstName,
-            user.lastName,
-            user.email,
-            user.age,
-            user.cart,
-            user.roles,
-            user.isAdmin
-        ));
+        const users= usersDocuments.docs.map(user => new User ({
+            id:user._id.toString(),
+            firstName:user.firstName,
+            lastName:user.lastName,
+            email:user.email,
+            age:user.age,
+            cart:user.cart,
+            roles:user.roles,
+            isAdmin:user.isAdmin    
+            })
+        );
         
         return {users, pagination};
     }
@@ -35,16 +36,16 @@ class userMongooseRepository {
                 throw new Error('User not found')
             }
             
-            return new User(
-                user._id.toString(),
-                user.firstName,
-                user.lastName,
-                user.email,
-                user.age,
-                user.cart,
-                user.roles
-
-            )
+            return new User({
+                id:user._id.toString(),
+                firstName:user.firstName,
+                lastName:user.lastName,
+                email:user.email,
+                age:user.age,
+                cart:user.cart,
+                roles:user.roles,
+                isAdmin:user.isAdmin    
+            })
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -59,16 +60,17 @@ class userMongooseRepository {
                 throw new Error('User not found')
             }
             
-            return new User(
-                user._id.toString(),
-                user.firstName,
-                user.lastName,
-                user.email,
-                user.age,
-                user.cart,
-                user.roles
-
-            )
+            return new User({
+                id:user._id.toString(),
+                firstName:user.firstName,
+                lastName:user.lastName,
+                email:user.email,
+                age:user.age,
+                cart:user.cart,
+                roles:user.roles,
+                password:user.password,
+                isAdmin:user.isAdmin    
+            })
         } catch (error) {
             console.log({error: error.message});
             throw new Error(error.message);
@@ -81,15 +83,15 @@ class userMongooseRepository {
             userCreateValidation.parse(dto);
             const newUser = await userSchema.create(dto);
             
-                return new User(
-                    user.firstName,
-                    user.lastName,
-                    user.email,
-                    user.age,
-                    user.cart,
-                    user.roles,
-                    user.isAdmin    
-                )
+                return new User({
+                    firstName:user.firstName,
+                    lastName:user.lastName,
+                    email:user.email,
+                    age:user.age,
+                    cart:user.cart,
+                    roles:user.roles,
+                    isAdmin:user.isAdmin    
+                })
 
             }catch (error) {
             console.log({error: error.message});
@@ -104,14 +106,15 @@ class userMongooseRepository {
             if(!user) {
                 throw new Error('User not found');
             }
-            const userNew = new User(
-                user.firstName,
-                user.lastName,
-                user.email,
-                user.age,
-                user.cart,
-                user.roles,
-            )
+            const userNew = new User({
+                firstName:user.firstName,
+                lastName:user.lastName,
+                email:user.email,
+                age:user.age,
+                cart:user.cart,
+                roles:user.roles,
+                isAdmin:user.isAdmin    
+            })
             return userNew
             
         } catch (error) {

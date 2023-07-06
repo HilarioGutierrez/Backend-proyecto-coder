@@ -8,20 +8,19 @@ class productsMongooseRepository {
         try {
             const { status, limit, page } = query;
             const productsDocument = await productSchema.paginate({status},{ limit , page });
-            const { docs, ...pagination } = productsDocument
-            const product = productsDocument.docs.map(product => new Product ({
-                id:product._id,
-                title:product.title,
-                product:product.description,
-                price:product.price,
-                thumbnail:product.thumbnail,
-                code:product.code,
-                stock:product.stock,
-                status:product.status,
-                category:product.category
+                productsDocument.docs.map(p => ({
+                id: p._id,
+                title: p.title,
+                description: p.description,
+                price: p.price,
+                thumbnail: p.thumbnail,
+                code: p.code,
+                stock: p.stock,
+                status: p.status,
+                category: p.category
             }))
-
-            return { product, pagination }
+            
+            return productsDocument
 
         } catch (error) {
             console.log(error);

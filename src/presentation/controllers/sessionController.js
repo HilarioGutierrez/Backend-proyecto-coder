@@ -8,7 +8,6 @@ export const login = async (req, res, next) => {
     try {
         const userData = req.body;
         const data = await session.login(userData);
-        
         res.cookie('userToken', data.data.accessToken, 
             {
                 maxAge: 60 * 60 * 1000,
