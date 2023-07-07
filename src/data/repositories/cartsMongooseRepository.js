@@ -1,5 +1,5 @@
 import Cart from "../../domain/entities/cart.js";
-import { stockValidation } from "../../shared/stockValidation.js";
+import stockProductCart from "../../domain/utils/stockProductCart.js";
 import cartSchema from "../models/cartSchema.js";
 import productSchema from "../models/productSchema.js";
 
@@ -29,7 +29,6 @@ class cartMongooseRepository {
                 { $push: { products: { _id: productDocument._id, quantity: 1 } } }
             );
             }
-            stockValidation(document,productDocument)
 
             const cart = await cartSchema.findById(cid);
             const { _id: id, products } = cart;
@@ -39,6 +38,8 @@ class cartMongooseRepository {
             products: products.map(({ _id, quantity }) => ({ id: _id, quantity }))
             });
         
+            stockProductCart(cid, pid)
+
             return updatedCart;
         } catch (error) {
             throw error;

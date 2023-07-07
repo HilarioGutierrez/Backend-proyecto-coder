@@ -7,6 +7,3 @@ export const userCreateValidation = z.object({
     age: z.number().max(100),
     password: z.string().min(8)
 });
-
-
-
