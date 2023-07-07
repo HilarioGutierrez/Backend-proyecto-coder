@@ -1,5 +1,5 @@
 import Cart from "../../domain/entities/cart.js";
-import stockProductCart from "../../domain/utils/stockProductCart.js";
+import availableStockValidation from "../../domain/validations/cart/availableStockValidation.js";
 import cartSchema from "../models/cartSchema.js";
 import productSchema from "../models/productSchema.js";
 
@@ -38,7 +38,7 @@ class cartMongooseRepository {
             products: products.map(({ _id, quantity }) => ({ id: _id, quantity }))
             });
         
-            stockProductCart(cid, pid)
+            availableStockValidation(cid, pid)
 
             return updatedCart;
         } catch (error) {

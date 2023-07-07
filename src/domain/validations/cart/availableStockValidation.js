@@ -1,7 +1,7 @@
-import cartManager from "../manager/cartManager.js";
-import productManager from "../manager/productManager.js";
+import cartManager from "../../manager/cartManager.js";
+import productManager from "../../manager/productManager.js";
 
-const stockProductCart = async (cid, pid) => {
+const availableStockValidation = async (cid, pid) => {
     const productManagerInstance = new productManager();
     const cartManagerInstance = new cartManager();
 
@@ -27,4 +27,4 @@ const stockProductCart = async (cid, pid) => {
     return stockProduct;
 }
 
-export default stockProductCart;
+export default availableStockValidation;
