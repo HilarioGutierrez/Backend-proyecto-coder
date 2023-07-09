@@ -1,5 +1,6 @@
 import ticket from "../../domain/entities/ticket.js";
 import ticketSchema from "../models/ticketSchema.js";
+
 class ticketMongooseRepository{
 
 async create (data) {

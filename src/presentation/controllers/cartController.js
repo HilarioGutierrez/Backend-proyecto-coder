@@ -41,6 +41,11 @@ export const addProduct = async (req, res,next) => {
     const cid = req.params.cid;
     const pid = req.params.pid;
     const cart = await manager.addProduct(cid, pid);
+
+    const user = req.user;
+    const {firstName,lastName,email} = user;
+
+    cart.user = {firstName,lastName,email};
     
     res.status(200).send({ message: 'Product added', payload: cart });
   } catch (e) {
