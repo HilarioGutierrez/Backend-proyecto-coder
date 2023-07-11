@@ -1,12 +1,13 @@
-class ticket {
+class Ticket {
     constructor(props) {
-        this.id = props.id;
+        this.id = props._id;
         this.code = props.code;
-        this.purchaseDateTime = props.purchaseDateTime;
+        this.purchaseDatetime = props.purchaseDatetime;
+        this.product = props.product;
         this.amount = props.amount;
-        this.purchase = props.purchase;
+        this.purchaser = props.purchaser;
     }
 
 }
 
-export default ticket;
+export default Ticket;

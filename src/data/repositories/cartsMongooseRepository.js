@@ -7,8 +7,8 @@ class cartMongooseRepository {
 
         // addProduct to cart -- delete cart
 
-    async create () {
-        return await cartSchema.create({ products: [] });
+    async create (user) {
+        return await cartSchema.create({ products: [], user:user });
     }
 
 
@@ -50,11 +50,13 @@ class cartMongooseRepository {
     }
 
     async getOne (id) {
-        const cart = await cartSchema.findOne( {_id:id} );
+        const cart = await cartSchema.findById(id);
+
         return new Cart ({
-            id:cart._id,
-            products:cart.products
-        })
+            _id: cart._id,
+            user: cart.user,
+            products: cart.products
+        });
     }
 
     async updateOne (id, data) {

@@ -1,19 +1,25 @@
-import ticket from "../../domain/entities/ticket.js";
+import Ticket from "../../domain/entities/ticket.js";
+import cartManager from "../../domain/manager/cartManager.js";
 import ticketSchema from "../models/ticketSchema.js";
 
 class ticketMongooseRepository{
 
-async create (data) {
-const newTicket = await ticketSchema.create(data);
+async create (id) {
+    const manager = new cartManager();
+    const cart = await manager.getOne(id);
+    const totalQuantity = cart.products.reduce((sum, product) => sum + product.quantity, 0);
+    const dto = new Ticket({
+        code: Math.floor(Math.random() * 1000000),
+        purchaseDatetime: new Date(),
+        product: cart.products,
+        amount: totalQuantity,
+        purchaser: cart.user[0].email
+    });
 
-return new ticket({
-    id: newTicket._id,
-    code: newTicket.code,
-    purchaseDatetime: newTicket.purchaseDatetime,
-    product: newTicket.product,
-    purchaser: newTicket.purchaser
-}); 
-}
+    const ticket = await ticketSchema.create(dto);
+
+    return ticket;
+    }
 
 async find (query) {
     const tickets = await ticketSchema.paginate({}, query);

@@ -3,11 +3,10 @@ import container from '../../shared/container.js'
 class cartManager {
   constructor () {
     this.cartRepository = container.resolve('cartRepository')
-    this.productRepository = container.resolve('productsRepository')
   }
 
-  async create () {
-    return this.cartRepository.create()
+  async create (user) {
+    return this.cartRepository.create(user)
   }
 
   async getAll () {

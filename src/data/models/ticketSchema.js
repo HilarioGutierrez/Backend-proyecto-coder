@@ -7,8 +7,9 @@ const ticketColeccion = 'tickets';
 const ticketSchema = new Schema({
     code: {type: Schema.Types.String, required: true, unique: true},
     purchaseDatetime:{type: Schema.Types.Date, required: true},
-    product:{type: Schema.Types.ObjectId, ref: 'products', required: true},
-    purchaser:{type: Schema.Types.ObjectId, ref: 'users', required: true},
+    product:{type: Schema.Types.Array, required: true},
+    amount:{type: Schema.Types.Number, required: true},
+    purchaser:{type: Schema.Types.String, required: true},
 });
 
 ticketSchema.plugin(mongoosePaginate);

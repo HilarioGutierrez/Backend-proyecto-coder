@@ -1,21 +1,13 @@
-import container from "../../shared/container.js";
-import cartManager from "./cartManager.js";
-
-
+import ticketMongooseRepository from '../../data/repositories/ticketMongooseRepository.js';
 class  ticketManager {
 
     constructor() {
-        this.ticketsRepository = container.resolve('ticketRepository');
+        this.ticketsRepository = new ticketMongooseRepository();
     };
 
-    async create(data) {
-        
-        const manager = new cartManager()
-        const cart = await manager.getOne()
-        
-        return this.ticketsRepository.create(data);
-        
-    }
+    async create(id) {
+            return this.ticketsRepository.create(id);
+    }   
 
     async find (query) {
         return this.ticketsRepository.find(query);

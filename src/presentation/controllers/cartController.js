@@ -1,12 +1,14 @@
 import cartManager from '../../domain/manager/cartManager.js'
-import { productStockValidation } from '../../domain/validations/product/productValidation.js'
 
 const manager = new cartManager()
 
 class cartController {
   static create = async (req, res,next) => {
     try {
-      const cart = await manager.create()
+      const user = req.user;
+      const {firstName,lastName,email} = user;
+      const cart = await manager.create({firstName,lastName,email})
+      
       res.status(201).send({ message: 'Cart created', cart })
     } catch (e) {
       next(e)
@@ -27,12 +29,13 @@ export const getAll = async (req, res,next) => {
 
 export const getOne = async (req, res,next) => {
   try {
-    const param = req.params.cid
-    const cart = await manager.getOne(param)
+    const cid = req.params.cid;
+    console.log(cid);
+    const cart = await manager.getOne(cid)
     res.status(200).send({ message: 'Cart found', cart: cart })
   } catch (e) {
     next(e)
-    console.log(e.message)
+    console.log('Error: ',e.message)
   }
 }
 

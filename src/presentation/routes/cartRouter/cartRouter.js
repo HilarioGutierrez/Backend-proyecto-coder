@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import cartController, { addProduct, deleteOne, deleteProduct, getAll, getOne, updateQuantity } from '../../controllers/cartController.js'
 import auth from '../../middlewares/auth.js'
+import { create } from '../../controllers/ticketController.js';
 
 const cartRouter = Router()
 
@@ -19,6 +20,6 @@ cartRouter.delete('/:cid',auth, deleteOne);
 
 cartRouter.delete('/:cid/product/:pid',auth, deleteProduct);
 
-cartRouter.get('/:cid/purchase',auth,);
+cartRouter.get('/:cid/purchase',auth,create);
 
 export default cartRouter
