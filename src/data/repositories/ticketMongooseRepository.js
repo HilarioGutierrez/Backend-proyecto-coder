@@ -7,7 +7,7 @@ class ticketMongooseRepository{
 async create (id) {
     const manager = new cartManager();
     const cart = await manager.getOne(id);
-    const totalQuantity = cart.products.reduce((sum, product) => sum + product.quantity, 0);
+    const totalQuantity = cart.products.reduce((sum, product) => sum + product.quantity, 0); //reduce recorre el array y en el primer argumento acumula el valor que va sumando el segundo argumento a medida que recorre el array
     const dto = new Ticket({
         code: Math.floor(Math.random() * 1000000),
         purchaseDatetime: new Date(),
