@@ -17,13 +17,13 @@ export const nodemailerConfig = async (req, res, next) => {
         <h1>Hola, ${firstName}!</h1>
         <br>
         <h3>Tu resumen de compra es el siguiente:</h3>
-        <br>
+        <hr>
         <p>Orden de compra: ${code}</p>
         <p>Fecha de compra: ${purchaseDatetime}</p>
         <p>Producto: ${product}</p>
         <p>cantidad total: ${amount}</p>
         <p>Comprador: ${purchaser}</p>
-        <br>
+        <hr>
         <p>Gracias por tu compra!</p>
         `   
         
@@ -48,7 +48,7 @@ export const nodemailerConfig = async (req, res, next) => {
             attachments: []
         });
 
-        res.status(200).json({ message: 'Mail sent successfully' });
+        res.status(200).json({ message: 'Mail sent successfully',body });
     } catch (error) {
         next()
         throw new Error(error);

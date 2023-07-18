@@ -8,7 +8,7 @@ class User {
         this.age = props.age;
         this.password = props.password;
         this.cart = props.cart;
-        this.roles = props.roles;
+        this.permissions = props.permissions;
         this.isAdmin = props.isAdmin;
     }
 }
