@@ -2,6 +2,7 @@ import { Router } from 'express'
 import cartController, { addProduct, deleteOne, deleteProduct, getAll, getOne, updateQuantity } from '../../controllers/cartController.js'
 import auth from '../../middlewares/auth.js'
 import { create } from '../../controllers/ticketController.js';
+import { sendMailTicket } from '../../../shared/sendMailTicket.js';
 
 const cartRouter = Router()
 

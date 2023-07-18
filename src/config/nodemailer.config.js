@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import { create } from '../presentation/controllers/ticketController.js';
 
 dotenv.config();
 
@@ -7,12 +8,23 @@ dotenv.config();
 export const nodemailerConfig = async (req, res, next) => {
     
     try {
-        const { to, subject, name } = req.body;
+        const { email, firstName } = req.user;
+        
+        const ticket = await create(req, res, next);
+        const {code, purchaseDatetime, product, amount, purchaser } = ticket;
         
         const body = `
-        <h1>Hi ${name}</h1>
+        <h1>Hola, ${firstName}!</h1>
         <br>
-        <h3>Este es un mensaje de prueba enviado desde el codigo pegandole a un endpoint.</h3>
+        <h3>Tu resumen de compra es el siguiente:</h3>
+        <br>
+        <p>Orden de compra: ${code}</p>
+        <p>Fecha de compra: ${purchaseDatetime}</p>
+        <p>Producto: ${product}</p>
+        <p>cantidad total: ${amount}</p>
+        <p>Comprador: ${purchaser}</p>
+        <br>
+        <p>Gracias por tu compra!</p>
         `   
         
         const transport = nodemailer.createTransport({
@@ -28,16 +40,17 @@ export const nodemailerConfig = async (req, res, next) => {
             },
         });
 
-        await transport.sendMail({
+        const mail = await transport.sendMail({
             from: process.env.MAIL_USER,
-            to: to,
-            subject: subject,
+            to: email,
+            subject: "subject",
             html:body ,
             attachments: []
         });
 
         res.status(200).json({ message: 'Mail sent successfully' });
     } catch (error) {
+        next()
         throw new Error(error);
     }
 }
