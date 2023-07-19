@@ -43,7 +43,7 @@ export const singup = async (req, res, next) => {
         const  user  = req.body;
 
         const newUser = await session.singup(user);
-        res.status(200).send({message: 'success', newUser});
+        res.status(201).send({message: 'success', newUser});
 
         if(!newUser){
             return res.status(400).send({message: 'error', error: 'User already exists or invalid data'});
