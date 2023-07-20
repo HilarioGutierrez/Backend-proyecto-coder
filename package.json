@@ -37,9 +37,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "chai": "^4.3.7",
-    "supertest": "^6.3.3",
     "@faker-js/faker": "^8.0.2",
-    "mocha": "^10.2.0"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

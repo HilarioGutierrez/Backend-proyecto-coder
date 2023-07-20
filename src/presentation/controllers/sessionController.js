@@ -7,13 +7,13 @@ const session = new sessionManager();
 export const login = async (req, res, next) => {
     try {
         const userData = req.body;
-        const data = await session.login(userData);
-        res.cookie('userToken', data.data.accessToken, 
+        const user = await session.login(userData);
+        res.cookie('userToken', user.data.accessToken, 
             {
                 maxAge: 60 * 60 * 1000,
                 httpOnly: true
             })
-            .status(200).send(data)
+            .status(200).send(user)
     } 
     catch (e) {
         next(e);

@@ -28,15 +28,25 @@ class AppExpress
         this.app.use('/', router);
         this.app.use(errorHandler)
     }
+    
+    close()
+    {
+        this.app.close();
+    }
 
     listen()
     {
-        const server = this.app.listen(process.env.NODE_PORT, () => { console.log(`Server running on port ${process.env.NODE_PORT}`) 
+        this.server = this.app.listen(process.env.NODE_PORT, () => { console.log(`Server running on port ${process.env.NODE_PORT}`) 
     })
 
-    return server;
+    return this.server;
     }
-}
+
+    callback()
+    {
+        return this.app;
+    }
+}    
 
 export default AppExpress;
 
