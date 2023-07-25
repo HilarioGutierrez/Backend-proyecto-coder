@@ -3,8 +3,9 @@ import supertest from 'supertest';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { generateUser } from '../domain/utils/generateUser.js';
+import { generateUser } from './utils/generateUser.js';
 import initServer from './index.js';
+import { UserLogin } from './utils/loginUser.js';
 
 const expect = chai.expect; //guarda chai.expect en una variable expect.Chai es una libreria de asserts donde expect es un metodo que se usa para comparar valores. Utiliza cadena de texto.
 let jwt = '';
@@ -39,10 +40,7 @@ describe('Testing User Endpoints', () => {
     });
 
     it('Login de un Usuario /api/sessions/login', function () {
-        const payload = {
-            email: "admin@mail.com",
-            password: '12345678'
-        }; // loguea usuario
+        const payload = UserLogin()
         return this.requester 
         .post('/api/sessions/login') //metodo post donde se hace el req
         .send(payload)// envia el payload

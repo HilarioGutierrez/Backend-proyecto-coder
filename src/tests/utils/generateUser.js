@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import User from "../entities/user.js";
+import User from "../../domain/entities/user.js";
 
 export const generateUser = () => {
     const user = new User({
