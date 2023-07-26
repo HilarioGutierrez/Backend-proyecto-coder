@@ -10,6 +10,7 @@ COPY package.json package-lock.json ./
 #Una vez copiado, ejecutamos npm -i interno en esa carpeta. Reinstalamos dependencias en el contenedor de docker
 RUN npm install -g nodemon
 
+
 #Despues procedemos a tomar todo el codigo del aplicativo
 COPY . .
 
