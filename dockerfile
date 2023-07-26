@@ -1,4 +1,5 @@
-FROM node:18-alpine
+# Utiliza la imagen oficial de Node.js que incluye npm
+FROM node:18.17.0
 
 #Despues creemaos una carpeta interna donde vamos a guardae nuestro proyecto
 WORKDIR /app
