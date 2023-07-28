@@ -14,7 +14,8 @@ export const login = async (req, res, next) => {
                 httpOnly: true
             })
             .status(200).send(user)
-    } 
+            
+    }
     catch (e) {
         next(e);
     } 

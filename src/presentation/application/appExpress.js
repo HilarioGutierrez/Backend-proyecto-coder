@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import router from '../routes/index.js';
 
 import errorHandler from '../middlewares/errorHandler.js';
+import session from 'express-session';
 
 
 dotenv.config()
@@ -21,6 +22,12 @@ class AppExpress
 
         //Cookies
         this.app.use(cookieParser(process.env.SECRET_KEY));
+
+        this.app.use(session({
+            secret: process.env.SECRET_KEY,
+            resave: false,
+            saveUninitialized: false,
+        }))
     }
 
     build()

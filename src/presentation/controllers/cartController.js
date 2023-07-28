@@ -3,19 +3,19 @@ import cartManager from '../../domain/manager/cartManager.js'
 const manager = new cartManager()
 
 class cartController {
-  static create = async (req, res,next) => {
-    try {
-      const user = req.user;
-      const {firstName,lastName,email} = user;
-      const cart = await manager.create({firstName,lastName,email})
-      
-      res.status(201).send({ message: 'Cart created', cart })
-    } catch (e) {
-      next(e)
-      res.status(404).send({ error: e.message })
+      static create = async (req, res,next) => {
+        try {
+          const user = req.user;
+          const {firstName,lastName,email} = user;
+          const cart = await manager.create({firstName,lastName,email})
+
+          res.status(201).send({ message: 'Cart created', cart })
+        } catch (e) {
+          next(e)
+          res.status(404).send({ error: e.message })
+        }
+      }
     }
-  }
-}
 
 export const getAll = async (req, res,next) => {
   try {
