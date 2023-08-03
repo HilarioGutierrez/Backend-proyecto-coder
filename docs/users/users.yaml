@@ -1,0 +1,170 @@
+openapi: 3.1.0
+info:
+  title: Ecommerce API
+  version: 1.0.0
+  description: Ecommerce API Information
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener lista de usuarios
+      parameters:
+        - name: limit
+          in: query
+          description: Número máximo de usuarios a devolver
+          required: false
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Página de resultados
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+    post:
+      summary: Crear un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+  /api/users/{email}:
+    get:
+      summary: Obtener un usuario por correo electrónico
+      parameters:
+        - name: email
+          in: path
+          description: Correo electrónico del usuario
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+    put:
+      summary: Actualizar un usuario existente
+      parameters:
+        - name: email
+          in: path
+          description: Correo electrónico del usuario a actualizar
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - name: email
+          in: path
+          description: Correo electrónico del usuario a eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operación exitosa
+
+components:
+  schemas:
+    UsersResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+            limit:
+              type: integer
+            page:
+              type: integer
+            pages:
+              type: integer
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        age:
+          type: integer
+        cart:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        isAdmin:
+          type: boolean
+
+    UserCreateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        age:
+          type: integer
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        cart:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        isAdmin:
+          type: boolean

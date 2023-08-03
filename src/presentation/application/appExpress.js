@@ -7,6 +7,9 @@ import router from '../routes/index.js';
 import errorHandler from '../middlewares/errorHandler.js';
 import session from 'express-session';
 
+import swaggerUiExpress from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+
 
 dotenv.config()
 
@@ -32,6 +35,21 @@ class AppExpress
 
     build()
     {
+        const swaggerOptions = {
+            definition: {
+                openapi: '3.0.1',
+                info: {
+                    title: 'API de Usuarios',
+                    version: '1.0.0',
+                    description: 'API para gestionar entidades de usuarios'
+                }
+            },
+            apis: ['./docs/**/*.yaml'],
+        };
+
+        const spect = swaggerJSDoc(swaggerOptions);
+        
+        this.app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(spect));
         this.app.use('/', router);
         this.app.use(errorHandler)
     }

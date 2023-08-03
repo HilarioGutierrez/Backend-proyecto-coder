@@ -20,6 +20,8 @@
 ### Eliminar contenedor
 * docker rm "name" (node_coder)
 
+### Logs
+* docker logs -f node_coder
 
 # Docker-Compose 
 
