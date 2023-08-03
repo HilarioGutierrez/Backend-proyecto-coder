@@ -16,8 +16,7 @@ dotenv.config()
 class AppExpress 
 {
 
-    init()
-    {
+    init() {
         this.app = express();
         //Create a new express application instance
         this.app.use(express.json());
@@ -33,15 +32,30 @@ class AppExpress
         }))
     }
 
-    build()
-    {
+    build() {
+        this.app.use('/', router);
+        this.app.use(errorHandler)
+    }
+    
+    close() {
+        this.app.close();
+    }
+
+    listen() {
+        this.server = this.app.listen(process.env.NODE_PORT, () => { console.log(`Server running on port ${process.env.NODE_PORT}`) 
+    })
+
+    return this.server;
+    }
+
+    swagger (){
         const swaggerOptions = {
             definition: {
                 openapi: '3.0.1',
                 info: {
-                    title: 'API de Usuarios',
+                    title: 'Ecommerce API',
                     version: '1.0.0',
-                    description: 'API para gestionar entidades de usuarios'
+                    description: 'Ecommerce API Information'
                 }
             },
             apis: ['./docs/**/*.yaml'],
@@ -50,25 +64,9 @@ class AppExpress
         const spect = swaggerJSDoc(swaggerOptions);
         
         this.app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(spect));
-        this.app.use('/', router);
-        this.app.use(errorHandler)
-    }
-    
-    close()
-    {
-        this.app.close();
     }
 
-    listen()
-    {
-        this.server = this.app.listen(process.env.NODE_PORT, () => { console.log(`Server running on port ${process.env.NODE_PORT}`) 
-    })
-
-    return this.server;
-    }
-
-    callback()
-    {
+    callback() {
         return this.app;
     }
 }    

@@ -1,0 +1,44 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Ticket API"
+paths:
+  /tickets/{cid}:
+    post:
+      summary: "Create a new ticket"
+      tags:
+        - Tickets
+      description: "Endpoint to create a new ticket"
+      parameters:
+        - name: cid
+          in: path
+          description: "Customer ID"
+          required: true
+          type: string
+      responses:
+        "201":
+          description: "Ticket created successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Ticket created"
+              ticket:
+                $ref: "#/definitions/Ticket"
+        "500":
+          description: "Server error"
+definitions:
+  Ticket:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "abc123"
+      customer:
+        type: string
+        example: "Customer name"
+      createdAt:
+        type: string
+        format: date-time
+        example: "2023-08-03T12:34:56Z"

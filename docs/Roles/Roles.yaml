@@ -1,0 +1,220 @@
+paths:
+  /roles:
+    get:
+      summary: "Get a list of roles"
+      tags:
+        - Roles
+      description: "Endpoint to get a paginated list of roles"
+      parameters:
+        - name: limit
+          in: query
+          description: "Number of roles to return per page (default: 5)"
+          required: false
+          type: integer
+        - name: page
+          in: query
+          description: "Page number (default: 1)"
+          required: false
+          type: integer
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+              roles:
+                type: array
+                items:
+                  $ref: "#/definitions/Role"
+              total:
+                type: integer
+                example: 10
+              limit:
+                type: integer
+                example: 5
+              page:
+                type: integer
+                example: 1
+        "500":
+          description: "Server error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+    post:
+      summary: "Create a new role"
+      tags:
+        - Roles
+      description: "Endpoint to create a new role"
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Role"
+      responses:
+        "200":
+          description: "Role created successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+              payload:
+                $ref: "#/definitions/Role"
+        "500":
+          description: "Server error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+  /roles/{id}:
+    get:
+      summary: "Get a role by ID"
+      tags:
+        - Roles
+      description: "Endpoint to get a role by its ID"
+      parameters:
+        - name: id
+          in: path
+          description: "Role ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+              payload:
+                $ref: "#/definitions/Role"
+        "404":
+          description: "Role not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Role not found"
+        "500":
+          description: "Server error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+    put:
+      summary: "Update a role by ID"
+      tags:
+        - Roles
+      description: "Endpoint to update a role by its ID"
+      parameters:
+        - name: id
+          in: path
+          description: "Role ID"
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Role"
+      responses:
+        "200":
+          description: "Role updated successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+              payload:
+                $ref: "#/definitions/Role"
+        "404":
+          description: "Role not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Role not found"
+        "500":
+          description: "Server error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+    delete:
+      summary: "Delete a role by ID"
+      tags:
+        - Roles
+      description: "Endpoint to delete a role by its ID"
+      parameters:
+        - name: id
+          in: path
+          description: "Role ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Role deleted successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "success"
+        "404":
+          description: "Role not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Role not found"
+        "500":
+          description: "Server error"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+definitions:
+  Role:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "abc123"
+      name:
+        type: string
+        example: "Admin"
+      description:
+        type: string
+        example: "Administrator role"
+      createdAt:
+        type: string
+        format: date-time
+        example: "2023-08-03T12:34:56Z"

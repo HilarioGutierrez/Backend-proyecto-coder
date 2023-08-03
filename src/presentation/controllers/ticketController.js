@@ -6,10 +6,11 @@ export const create = async (req, res, next) => {
     try {
         const cid = req.params.cid
         const ticket = await manager.create(cid);
-    
+        
+        res.status(201).send({ message: 'Ticket created', ticket });
+        
         return ticket;
 
-        res.status(201).send({ message: 'Ticket created', ticket });
         
     } catch (e) {
         console.log(e);

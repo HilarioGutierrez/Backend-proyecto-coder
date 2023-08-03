@@ -1,0 +1,180 @@
+# paths:
+#   /api/sessions/singup:
+#     post:
+#       summary: Registro de un nuevo Usuario
+#       tags:
+#         - Sessions
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/Sessions'
+#       responses:
+#         '201': 
+#           description: Success
+#         '400':
+#           description: User already exists or invalid data
+# components:
+#   schemas:
+#     Sessions:
+#       type: object
+#       properties:
+#         email:
+#           type: string
+#         password:
+#           type: string
+
+openapi: 3.0.0
+info:
+  title: Session API
+  version: 1.0.0
+  description: API for managing user sessions
+
+paths:
+  /api/sessions/login:
+    post:
+      summary: Login user
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Invalid credentials or missing data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/sessions/logout:
+    post:
+      summary: Logout user
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/sessions/singup:
+    post:
+      summary: Register a new User
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponse'
+        '400':
+          description: User already exists or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/sessions/current:
+    get:
+      summary: Get current user
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Successful retrieval of current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          type: object
+          properties:
+            accessToken:
+              type: string
+
+    LogoutResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    RegistrationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        newUser:
+          $ref: '#/components/schemas/User'
+
+    CurrentUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string

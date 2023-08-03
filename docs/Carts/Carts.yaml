@@ -1,0 +1,245 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Cart API"
+paths:
+  /carts:
+    post:
+      summary: "Create a new cart"
+      tags:
+        - Carts
+      description: "Endpoint to create a new cart"
+      parameters: []
+      responses:
+        "201":
+          description: "Cart created successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Cart created"
+              cart:
+                $ref: "#/definitions/Cart"
+        "404":
+          description: "Not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+    get:
+      summary: "Get all carts"
+      tags:
+        - Carts
+      description: "Endpoint to get all carts"
+      parameters: []
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Cart"
+        "404":
+          description: "Not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+  /carts/{cid}:
+    get:
+      summary: "Get a cart by ID"
+      tags:
+        - Carts
+      description: "Endpoint to get a cart by its ID"
+      parameters:
+        - name: cid
+          in: path
+          description: "Cart ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Cart"
+        "404":
+          description: "Not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+    delete:
+      summary: "Delete a cart by ID"
+      tags:
+        - Carts
+      description: "Endpoint to delete a cart by its ID"
+      parameters:
+        - name: cid
+          in: path
+          description: "Cart ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Cart deleted successfully"
+        "404":
+          description: "Not found"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+  /carts/{cid}/products/{pid}:
+    put:
+      summary: "Add a product to a cart"
+      tags:
+        - Carts
+      description: "Endpoint to add a product to a cart"
+      parameters:
+        - name: cid
+          in: path
+          description: "Cart ID"
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: "Product ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Product added successfully"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Product added"
+              payload:
+                $ref: "#/definitions/Cart"
+        "400":
+          description: "Bad request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+    delete:
+      summary: "Delete a product from a cart"
+      tags:
+        - Carts
+      description: "Endpoint to delete a product from a cart"
+      parameters:
+        - name: cid
+          in: path
+          description: "Cart ID"
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: "Product ID"
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Product deleted successfully"
+        "400":
+          description: "Bad request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+    patch:
+      summary: "Update product quantity in a cart"
+      tags:
+        - Carts
+      description: "Endpoint to update product quantity in a cart"
+      parameters:
+        - name: cid
+          in: path
+          description: "Cart ID"
+          required: true
+          type: string
+        - name: pid
+          in: path
+          description: "Product ID"
+          required: true
+          type: string
+        - name: quantity
+          in: body
+          description: "New quantity for the product"
+          required: true
+          schema:
+            type: object
+            properties:
+              quantity:
+                type: integer
+                example: 5
+      responses:
+        "200":
+          description: "Quantity updated successfully"
+        "400":
+          description: "Bad request"
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Error message"
+
+definitions:
+  Cart:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "abc123"
+      user:
+        type: object
+        properties:
+          firstName:
+            type: string
+            example: "John"
+          lastName:
+            type: string
+            example: "Doe"
+          email:
+            type: string
+            example: "john.doe@example.com"
+      createdAt:
+        type: string
+        format: date-time
+        example: "2023-08-03T12:34:56Z"
+      products:
+        type: array
+        items:
+          $ref: "#/definitions/Product"
+
+  Product:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "p1"
+      name:
+        type: string
+        example: "Product Name"
+      price:
+        type: number
+        format: double
+        example: 10.99

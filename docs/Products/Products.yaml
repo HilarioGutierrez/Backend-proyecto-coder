@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  version: 1.0.0
+  description: API for managing products
+
+paths:
+  /api/products:
+    post:
+        summary: Create a new product
+        tags:
+          - Products
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        responses:
+          '200':
+            description: Successful creation of the product
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ProductResponse'
+          '400':
+            description: Invalid data or missing required fields
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+          '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      parameters:
+        - name: status
+          in: query
+          description: Filter products by status (true or false)
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          description: Number of products to return per page default 5
+          schema:
+            type: integer
+            minimum: 1
+          default: 5
+        - name: page
+          in: query
+          description: Page number for pagination default 1
+          schema:
+            type: integer
+            minimum: 1
+          default: 1
+        - name: sort
+          in: query
+          description: Sorting order for products (asc or desc)
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        '200':
+          description: Successful retrieval of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/products/{productId}:
+    get:
+      summary: Get a specific product
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    
+    put:
+      summary: Update an existing product
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Successful update of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a product
+      tags:
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful deletion of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        category:
+          type: string
+        stock:
+          type: integer
+        code:
+          type: string
+        thumbnail:
+          type: string
+
+    ProductsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+    ProductResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        product:
+          $ref: '#/components/schemas/Product'
+
+    DeleteResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        deletedProduct:
+          $ref: '#/components/schemas/Product'
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string

@@ -1,35 +1,33 @@
-openapi: 3.1.0
-info:
-  title: Ecommerce API
-  version: 1.0.0
-  description: Ecommerce API Information
-
 paths:
   /api/users:
     get:
-      summary: Obtener lista de usuarios
+      summary: Get list of users
+      tags:
+        - Users
       parameters:
         - name: limit
           in: query
-          description: Número máximo de usuarios a devolver
+          description: Maximum number of users to return
           required: false
           schema:
             type: integer
         - name: page
           in: query
-          description: Página de resultados
+          description: Result page number
           required: false
           schema:
             type: integer
       responses:
         '200':
-          description: Operación exitosa
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UsersResponse'
     post:
-      summary: Crear un nuevo usuario
+      summary: Create a new user
+      tags:
+        - Users
       requestBody:
         required: true
         content:
@@ -38,29 +36,33 @@ paths:
               $ref: '#/components/schemas/UserCreateRequest'
   /api/users/{email}:
     get:
-      summary: Obtener un usuario por correo electrónico
+      summary: Get a user by email
+      tags:
+        - Users
       parameters:
         - name: email
           in: path
-          description: Correo electrónico del usuario
+          description: User's email address
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Operación exitosa
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
         '404':
-          description: Usuario no encontrado
+          description: User not found
     put:
-      summary: Actualizar un usuario existente
+      summary: Update an existing user
+      tags:
+        - Users
       parameters:
         - name: email
           in: path
-          description: Correo electrónico del usuario a actualizar
+          description: Email address of the user to update
           required: true
           schema:
             type: string
@@ -72,47 +74,30 @@ paths:
               $ref: '#/components/schemas/UserUpdateRequest'
       responses:
         '200':
-          description: Operación exitosa
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
         '404':
-          description: Usuario no encontrado
+          description: User not found
     delete:
-      summary: Eliminar un usuario
+      summary: Delete a user
+      tags:
+        - Users
       parameters:
         - name: email
           in: path
-          description: Correo electrónico del usuario a eliminar
+          description: Email address of the user to delete
           required: true
           schema:
             type: string
       responses:
         '200':
-          description: Operación exitosa
+          description: Successful operation
 
 components:
   schemas:
-    UsersResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-            limit:
-              type: integer
-            page:
-              type: integer
-            pages:
-              type: integer
-
     User:
       type: object
       properties:
@@ -123,38 +108,6 @@ components:
         lastName:
           type: string
         email:
-          type: string
-        age:
-          type: integer
-        cart:
-          type: array
-          items:
-            type: string
-        roles:
-          type: array
-          items:
-            type: string
-        isAdmin:
-          type: boolean
-
-    UserCreateRequest:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        age:
-          type: integer
-
-    UserUpdateRequest:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
           type: string
         age:
           type: integer
