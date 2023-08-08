@@ -9,6 +9,7 @@ import session from 'express-session';
 
 import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
+import { addLogger } from '../../domain/utils/logger.js';
 
 
 dotenv.config()
@@ -30,6 +31,8 @@ class AppExpress
             resave: false,
             saveUninitialized: false,
         }))
+        this.app.use(addLogger)
+
     }
 
     build() {
@@ -69,7 +72,8 @@ class AppExpress
     callback() {
         return this.app;
     }
-}    
+    
+}
 
 export default AppExpress;
 

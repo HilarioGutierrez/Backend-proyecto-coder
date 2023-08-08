@@ -58,7 +58,6 @@ class productsMongooseRepository {
             status:product.status,
             category:product.category
         })
-        console.log(dto);
         return dto;
     }
 

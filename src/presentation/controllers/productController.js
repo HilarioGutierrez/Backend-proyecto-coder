@@ -66,6 +66,7 @@ export const getOne = async (req, res) => {
 export const create = async (req, res) => {
     try {
         const product = req.body;
+        req.logger.warn('ERROR EN CARGA PRODUCTO')
 
         //desestructuring
         const { title, description, price, category , stock, code, thumbnail } = product;

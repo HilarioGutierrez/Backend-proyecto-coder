@@ -60,7 +60,6 @@ export const current = async (req, res, next) => {
 
     try {
         res.status(200).send({message: 'success', user: req.user});
-        next();
         
     } catch (e) {
         next(e);

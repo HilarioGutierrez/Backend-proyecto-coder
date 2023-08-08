@@ -72,7 +72,6 @@ class userMongooseRepository {
                 isAdmin:user.isAdmin    
             })
         } catch (error) {
-            console.log({error: error.message});
             throw new Error(error.message);
         }
     }

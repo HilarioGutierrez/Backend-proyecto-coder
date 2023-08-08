@@ -9,7 +9,7 @@
     "test": "mocha src/tests/*.test.js",
     "cluster": "pm2 start src/index.js -i 2"
   },
-  "author": "",
+  "author": "Hilario Gutierrez <hilario.m.gutierrez@gmail.com>",
   "type": "module",
   "license": "ISC",
   "dependencies": {
@@ -40,6 +40,7 @@
     "swagger-ui-express": "^5.0.0",
     "twilio": "^4.12.0",
     "uuid": "^9.0.0",
+    "winston": "^3.10.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -47,5 +48,6 @@
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "supertest": "^6.3.3"
-  }
+  },
+  "repository": "https://github.com/HilarioGutierrez/Backend-proyecto-coder.git"
 }
