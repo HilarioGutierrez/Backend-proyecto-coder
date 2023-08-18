@@ -8,12 +8,13 @@ export const login = async (req, res, next) => {
     try {
         const userData = req.body;
         const user = await session.login(userData);
+        
         res.cookie('userToken', user.data.accessToken, 
             {
                 maxAge: 60 * 60 * 1000,
                 httpOnly: true
             })
-            .status(200).send(user)
+            .status(200).send({message: 'success', ...user.data, password: undefined});
             
     }
     catch (e) {

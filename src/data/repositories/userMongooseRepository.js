@@ -134,6 +134,25 @@ class userMongooseRepository {
             console.log({error: error.message});
         }
     }
+
+    async updatePassword (email, password) {
+        try {
+            const user = await userSchema.findOneAndUpdate( {email: email}, password, {new: true} );
+
+            if(!user) {
+                throw new Error('User not found');
+            }
+            const newPaswoord = new User({
+                password:user.password    
+            })
+            return newPaswoord
+            
+        } catch (error) {
+            console.log({error: error.message});
+        }
+    }
+
 }
+
 
 export default userMongooseRepository;

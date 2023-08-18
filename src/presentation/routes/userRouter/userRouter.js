@@ -2,6 +2,7 @@ import { Router } from "express";
 import {  create, deleteOne, getOne, list, updateOne } from "../../controllers/userController.js";
 import auth from "../../middlewares/auth.js";
 import authorization from "../../middlewares/authorization.js";
+import { changePassword } from "../../controllers/changePasswordController.js";
 
 const userRouter = new Router();
 
@@ -15,6 +16,7 @@ userRouter.put('/:email', auth, updateOne);
 
 userRouter.delete('/:email', auth, deleteOne);
 
+userRouter.post('/changepassword', auth, changePassword);
 //userRouter.post('/:email/:role', authorization('addRole'), addRole); //hacer addRole que agregue el ID del roll al array de roles del usuario. verificando si el usuario es "admin" o no. si no es "admin" es "user"
 
 export default userRouter

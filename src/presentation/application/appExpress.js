@@ -31,8 +31,8 @@ class AppExpress
             resave: false,
             saveUninitialized: false,
         }))
+        
         this.app.use(addLogger)
-
     }
 
     build() {

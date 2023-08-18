@@ -31,7 +31,7 @@ async login(userData){
         return {message: 'error', error: 'Invalid credentials'};
     }
     const accessToken = generateToken(user); // genera token de acceso JWT
-    const data = { ...user, password: undefined, accessToken}
+    const data = { ...user, accessToken}
     return {message: 'success',data};
 }
 

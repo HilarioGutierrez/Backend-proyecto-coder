@@ -46,6 +46,10 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "chai": "^4.3.7",
+    "eslint": "^8.46.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
     "mocha": "^10.2.0",
     "supertest": "^6.3.3"
   },

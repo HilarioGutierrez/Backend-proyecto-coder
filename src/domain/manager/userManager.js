@@ -29,6 +29,10 @@ class userManager {
     async updateOne(email, user) {
         return this.userRepository.updateOne(email, user);
     }
+
+    async updatePassword(email, password) {
+        return this.userRepository.updatePassword(email, password);
+    }
 }
 
 export default userManager;
