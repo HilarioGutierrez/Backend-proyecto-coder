@@ -3,6 +3,7 @@ import { current, login, logout, singup } from "../../controllers/sessionControl
 import passport from "passport";
 import auth from "../../middlewares/auth.js";
 import authorization from "../../middlewares/authorization.js";
+import { changePassword, forgotPassword } from "../../controllers/PasswordController.js";
 
 const sessionRouter = Router();
 
@@ -10,7 +11,8 @@ sessionRouter.post('/login', login );
 sessionRouter.post('/logout', auth, logout );
 sessionRouter.post('/singup', singup );
 sessionRouter.get('/current', auth,authorization("admin"), current );
-
+sessionRouter.post('/forgot-password', forgotPassword );
+sessionRouter.get('/change-password', changePassword );
 //sessionRouter.post('/login2', passport.authenticate('login2', {failureRedirect: '/api/sessions/fail'}), login2)
 //sessionRouter.post('/register', passport.authenticate('register', {failureRedirect: '/api/sessions/fail'}), register)
 
