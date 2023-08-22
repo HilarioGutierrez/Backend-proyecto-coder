@@ -15,5 +15,6 @@ void (async () =>
     app.build();
     app.listen();
     app.swagger();
+    app.handlebars();
 
 })()

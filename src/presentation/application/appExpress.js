@@ -11,6 +11,8 @@ import swaggerUiExpress from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { addLogger } from '../../domain/utils/logger.js';
 
+import handlebars from 'express-handlebars';
+
 
 dotenv.config()
 
@@ -67,6 +69,12 @@ class AppExpress
         const spect = swaggerJSDoc(swaggerOptions);
         
         this.app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(spect));
+    }
+
+    handlebars() {
+        this.app.engine('handlebars', handlebars.engine());
+        this.app.set('views','./src/presentation/views');
+        this.app.set('view engine', 'handlebars');
     }
 
     callback() {
