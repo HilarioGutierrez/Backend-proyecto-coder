@@ -1,5 +1,5 @@
 import userSchema from "../models/userSchema.js";
-import { creatHash } from "../../domain/utils/passwardHash.js";
+import { createHash } from "../../domain/utils/passwardHash.js";
 import { userCreateValidation } from "../../domain/validations/user/userCreateValidation.js";
 import User from "../../domain/entities/user.js";
 
@@ -78,7 +78,7 @@ class userMongooseRepository {
     //Create one user
     async create (user) {
         try {
-            const dto = {...user, password: await creatHash(user.password,10)};
+            const dto = {...user, password: await createHash(user.password,10)};
             userCreateValidation.parse(dto);
             const newUser = await userSchema.create(dto);
             
@@ -142,10 +142,10 @@ class userMongooseRepository {
             if(!user) {
                 throw new Error('User not found');
             }
-            const newPaswoord = new User({
+            const newPassword = new User({
                 password:user.password    
             })
-            return newPaswoord
+            return newPassword
             
         } catch (error) {
             console.log({error: error.message});

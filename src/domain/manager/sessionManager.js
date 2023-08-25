@@ -1,5 +1,5 @@
 import { generateToken } from "../utils/generateToken.js";
-import { creatHash, isValidPassword } from "../utils/passwardHash.js";
+import { createHash, isValidPassword } from "../utils/passwardHash.js";
 import { singupValidation } from "../validations/session/singupValidation.js";
 import { userCreateValidation } from "../validations/user/userCreateValidation.js";
 import userManager from "./userManager.js";
@@ -11,7 +11,7 @@ class sessionManager {
 //en singup hacer dto y que user agregue el dto
 
 async singup(user) {
-    const dto = {...user, password: await creatHash(user.password,10)};
+    const dto = {...user, password: await createHash(user.password,10)};
     userCreateValidation.parse(dto);
 
     const newUser = await manager.create(dto);

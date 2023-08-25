@@ -25,7 +25,7 @@ const manager = new userManager();
     
     //         const dto = {
     //             ...req.body,
-    //             password: await creatHash(req.body.password)
+    //             password: await createHash(req.body.password)
     //         }
     
     //         let result = await manager.create(dto);

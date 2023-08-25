@@ -93,7 +93,7 @@ export const current = async (req, res, next) => {
 //     try {
 //         const { email, password } = req.body;
 
-//         const dto = { email, password: await creatHash(password,10)};
+//         const dto = { email, password: await createHash(password,10)};
 
 //         const user = await manager.getOneByEmail(email);
 //         const isHashedPassword = await isValidPassword(password,user.password);

@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 dotenv.config();
 
-export const nodemailerForgotPassword = async (jwt,nameUser) => {
+export const nodemailerForgotPassword = async (jwt, nameUser, email) => {
     try {
         const body = `
             <!DOCTYPE html>
@@ -38,7 +38,7 @@ export const nodemailerForgotPassword = async (jwt,nameUser) => {
                 <br>
                 <h3>Para cambiar tu contraseña ingresa al siguiente link:</h3>
                 <hr>
-                <a href="${process.env.URL_FRONT}api/sessions/change-password?token=${jwt}" class="btn btn-primary">Recuperar Contraseña</a>
+                <a href="${process.env.URL_FRONT}api/sessions/change-password?token=${jwt}&email=${email}" class="btn btn-primary">Recuperar Contraseña</a>
                 <br>
                 <br>
                 <p>Gracias!</p>
