@@ -72,8 +72,7 @@ export const changePassword = async (req, res) => {
         const confirmPassword = req.body.confirmPassword;
 
         if (newPassword !== confirmPassword) {
-            res.status(400).send({message: 'error', error: 'passwords do not match'});
-            return;
+            res.render('passwordsDoNotMatch')
         }
 
         const passwordHash = await createHash(newPassword);
