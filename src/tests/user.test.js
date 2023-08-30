@@ -50,13 +50,8 @@ describe("User Tests", function () {
         .set("Authorization", `Bearer ${jwt}`)
         .send(payload)
         .then((result) => {
-            
+            expect(result._body.payload.firstName).to.be.equals(payload.firstName);
             })
         });
 });
 
-
-// HACER TEST DE DELATE
-
-
-//HACER TEST DE GETONE
