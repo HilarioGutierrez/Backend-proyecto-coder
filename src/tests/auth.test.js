@@ -18,10 +18,7 @@ describe('Testing User Endpoints', () => {
         this.app = app // guarda la app que se desestructuro de initServer
         this.db = db; // guarda la db que se desestructuro de initServer
     });
-    // after(function () {
-    //     this.db.disconnect();
-    //     this.app.close();
-    // });
+
     
     it('Creacion de un Usuario /api/sessions/singup', function () { //test funcional
         const payload = generateUser(); // genera usuario. this.payload es para usarlo en otro it y poder hacer login con el usuario creado
@@ -30,8 +27,7 @@ describe('Testing User Endpoints', () => {
         .send(payload)// envia el payload
         .then(result => // espera el resultado
         {
-            // console.log('result: ',result);
-            const {_body, status} = result; //desestructira el resultado en body y status
+             const {_body, status} = result; //desestructira el resultado en body y status
             expect(status).to.be.equals(201); //espera que el status sea 201
             expect(_body.newUser.email).to.be.equals(payload.email); //espera que el email delnuevo usuario sea igual al delpayload
         }
@@ -49,24 +45,19 @@ describe('Testing User Endpoints', () => {
             const {_body, status} = result; //desestructira el resultado en body y status
 
             expect(status).to.be.equals(200);
-            expect(_body.data.email).to.be.equals(payload.email);
-            jwt = _body.data.accessToken;
+            expect(_body.email).to.be.equals(payload.email);
+            jwt = _body.accessToken;
             
         }
         );
     });
 
     it('Current User /api/sessions/current', function () { //test funcional
-        const payload = {
-            email: "admin@mail.com",
-            password: '12345678'
-        }; // loguea usuario
-
+        const payload = UserLogin(); // loguea usuario
         return this.requester
         .get('/api/sessions/current')
         .set('Authorization', `Bearer ${jwt}`) // setea el header con el auth jwt que se obtuvo en el login
         .then(result => {
-
             const { _body, status } = result; //desestructira el resultado en body y status
             expect(status).to.be.equals(200);
             expect(_body.user.email).to.be.equals(payload.email);

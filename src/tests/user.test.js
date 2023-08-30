@@ -33,25 +33,24 @@ describe("User Tests", function () {
             const {_body, status} = result; //desestructira el resultado en body y status
 
             expect(status).to.be.equals(200);
-            expect(_body.data.email).to.be.equals(payload.email);
-            jwt = _body.data.accessToken;
+            expect(result._body.email).to.be.equals(payload.email);
+            jwt = _body.accessToken;
             
         }
         );
     });
-
+    
     it("Update User", function () {
         const payload = {
             firstName: faker.person.firstName(),
             age:2222
         }
         return this.requester
-            .put("/api/users/Cletus36@hotmail.com")
-            .set("Authorization", `Bearer ${jwt}`)
-            .send(payload)
-            .then((result) => {
-                
-                console.log("result: ", result);
+        .put("/api/users/admin@mail.com")
+        .set("Authorization", `Bearer ${jwt}`)
+        .send(payload)
+        .then((result) => {
+            
             })
         });
 });

@@ -7,6 +7,8 @@ import dbFactory from '../data/factories/dbFactory.js';
 import userMongooseRepository from '../data/repositories/userMongooseRepository.js';
 import appFactory from '../presentation/factories/appFactory.js';
 import { generateUser } from '../domain/utils/generateUser.js';
+import initServer from './index.js';
+import supertest from 'supertest';
 
 const expect = chai.expect;
 
@@ -15,20 +17,25 @@ const app = appFactory.create(process.env.APPLICATION);
 
 describe('Testing userMongooseRepository', () => {
     before(function () {
-        db.connect(process.env.MONGO_DB_URI);
+        db.connect(process.env.MONGO_DB_URI)
         this.userRepository = new userMongooseRepository();
     });
     after(function () {
         db.disconnect();
     });
-    
+    beforeEach(async function () {
+        this.timeout(2000);
+        await new Promise(resolve => setTimeout(resolve, 500));
+    });
+
     it('El repositorio debe ser una instancia de UserMongooseRepository', function () {
         expect(this.userRepository instanceof userMongooseRepository).to.be.ok;
     });
     it('El repositorio debe devolver un arreglo', function () {
-        return this.userRepository.paginate({limit: 5, page: 1})
+        return this.userRepository.paginate({ limit: 5, page: 1 })
             .then(result =>
             {
+                expect(Array.isArray(result.users)).to.be.equals(true);
                 expect(result.pagination.limit).to.be.equals(5);
             }
         );
