@@ -6,10 +6,10 @@ export const find = async (req, res) => {
 
         const query = {
             status: req.query.status || 'true',
-        limit: +req.query.limit || 5,
-        page: +req.query.page || 1,
-        sort: req.query.sort || 'asc',
-    }
+            limit: +req.query.limit || 5,
+            page: +req.query.page || 1,
+            sort: req.query.sort || 'asc',
+        }
     
     try {
         
@@ -76,7 +76,6 @@ export const create = async (req, res) => {
             throw new Error('Invalid data');
             }
             const newProduct = await manager.create(product);
-            //console.log(newProduct);
             res.status(200).send({message: 'Product Added', payload: {... newProduct}});
             
     } catch (error) {

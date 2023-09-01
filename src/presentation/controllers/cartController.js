@@ -30,7 +30,6 @@ export const getAll = async (req, res,next) => {
 export const getOne = async (req, res,next) => {
   try {
     const cid = req.params.cid;
-    console.log(cid);
     const cart = await manager.getOne(cid)
     res.status(200).send({ message: 'Cart found', cart: cart })
   } catch (e) {

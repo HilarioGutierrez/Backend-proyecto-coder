@@ -1,7 +1,7 @@
 
 # Create user account
 
-> npm run command -- addUser -fn *< first name >* -ln *< last name >* -e *< email >* -a *< password >* -p *< password >* -ia *< true >*
+> npm run command -- addUser -fn *< first name >* -ln *< last name >* -e *< email >* -a *< age >* -p *< password >* -ia *< true >*
 
 # Dockers Commands
 

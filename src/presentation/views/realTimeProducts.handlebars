@@ -81,7 +81,6 @@
         socket.emit('new-product', newProduct);
 
         socket.on('listProduct', (data) => {
-            console.log(data);
             let html = renderProductsList(data);
             productsHtml.innerHTML = html;
         })
@@ -94,7 +93,6 @@
     }
 
     socket.on('listProduct', (data) => {
-        console.log(data);
         let html = renderProductsList(data);
         productsHtml.innerHTML = html;
     })

@@ -53,5 +53,6 @@ describe("User Tests", function () {
             expect(result._body.payload.firstName).to.be.equals(payload.firstName);
             })
         });
-});
+    
+    });
 
