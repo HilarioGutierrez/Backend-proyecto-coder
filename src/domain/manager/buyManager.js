@@ -1,4 +1,5 @@
 import cartManager from "./cartManager";
+import stripe from "stripe";
 
 class buyManager {
 
