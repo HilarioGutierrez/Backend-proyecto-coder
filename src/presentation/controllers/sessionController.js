@@ -8,6 +8,7 @@ export const login = async (req, res, next) => {
     try {
         const userData = req.body;
         const user = await session.login(userData);
+        console.log('user', user.data.email);
         
         res.cookie('userToken', user.data.accessToken, 
             {

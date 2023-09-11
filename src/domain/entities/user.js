@@ -10,6 +10,7 @@ class User {
         this.cart = props.cart;
         this.permissions = props.permissions;
         this.isAdmin = props.isAdmin;
+        this.loginDate = props.loginDate;
     }
 }
 

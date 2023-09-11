@@ -120,6 +120,31 @@ class userMongooseRepository {
             console.log({error: error.message});
         }
     }
+
+    async updateDate (email, date){
+        try {
+            const user = await userSchema.findOneAndUpdate( {email: email}, date, {new: true} );
+
+            if(!user) {
+                throw new Error('User not found');
+            }
+            const userNew = new User({
+                firstName:user.firstName,
+                lastName:user.lastName,
+                email:user.email,
+                age:user.age,
+                cart:user.cart,
+                roles:user.roles,
+                isAdmin:user.isAdmin,
+                loginDate: user.loginDate
+            })
+            return userNew
+            
+        } catch (error) {
+            console.log({error: error.message});
+        }
+
+    }
     //Delete one user
     async deleteOne (email) {
         try {

@@ -30,6 +30,10 @@ class userManager {
         return this.userRepository.updateOne(email, user);
     }
 
+    async updateDate(email, date) {
+        return this.userRepository.updateDate(email, date);
+    }
+
     async updatePassword(email, password) {
         return this.userRepository.updatePassword(email, password);
     }

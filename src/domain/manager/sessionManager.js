@@ -20,6 +20,7 @@ async singup(user) {
 };
 
 async login(userData){
+    const manager = new userManager();
 
     const { email, password } = userData;
     singupValidation.parseAsync({ email, password });
@@ -30,8 +31,9 @@ async login(userData){
     if(!isHashedPassword){
         return {message: 'error', error: 'Invalid credentials'};
     }
+    await manager.updateDate(email, {loginDate: new Date()})
     const accessToken = generateToken(user); // genera token de acceso JWT
-    const data = { ...user, accessToken}
+    const data = { ...user, date: new Date().toDateString(), accessToken}
     return {message: 'success',data};
 }
 

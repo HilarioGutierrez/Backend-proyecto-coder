@@ -12,7 +12,8 @@ const userSchema = new Schema({
     isAdmin: { type: Schema.Types.Boolean, required: true, default: false },
     cart: { type: Schema.Types.ObjectId, ref: 'carts'},
     permissions: [{ type: Schema.Types.ObjectId, ref: 'roles', index: true }],
-    password: { type: Schema.Types.String,required: true }
+    password: { type: Schema.Types.String,required: true },
+    loginDate: { type: Schema.Types.Date, required: true, default: undefined}
 });
 
 userSchema.plugin(mongoosePaginate);

@@ -61,6 +61,24 @@ export const updateOne = async (req, res,next) => {
     }
 };
 
+export const updateDate = async (req, res, next) => {
+    try {
+        const { email } = req.user;
+        const user = req.body;
+
+        if(!email) {
+            res.status(404).send({message: 'User not found'});
+            throw new Error('Missing fields');
+        }
+        const result = await manager.updateOne(email, {loginDate: new Date()});
+        res.status(200).send({message: 'success', payload: result });
+
+    } 
+    catch (e) {
+        next(e);
+    }
+};
+
 export const deleteOne = async (req, res,next) => {
     try {
         const { email } = req.params;
