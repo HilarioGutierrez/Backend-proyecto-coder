@@ -2,7 +2,7 @@ import cron from 'node-cron'
 import userManager from '../../domain/manager/userManager.js'
 import cartManager from '../../domain/manager/cartManager.js';
 
-export const task = cron.schedule('0 * * * *', () => { //Tarea que se ejecuta todos los dias del mes a las 0hs
+export const task = cron.schedule('0 0 * * 0/2', () => { //Tarea que se ejecuta todos los dias del mes a las 0hs
 try {
     const manager = new userManager();
     
