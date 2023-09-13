@@ -10,7 +10,7 @@ const sessionRouter = Router();
 sessionRouter.post('/login', login );
 sessionRouter.post('/logout', auth, logout );
 sessionRouter.post('/singup', singup );
-sessionRouter.get('/current', auth,authorization("admin"), current );
+sessionRouter.get('/current', auth,authorization(), current );
 sessionRouter.post('/forgot-password', forgotPassword );
 sessionRouter.get('/change-password', renderFormPassword );
 sessionRouter.post('/updatepassword', changePassword);

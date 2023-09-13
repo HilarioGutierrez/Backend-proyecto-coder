@@ -13,7 +13,7 @@ const userSchema = new Schema({
     cart: { type: Schema.Types.ObjectId, ref: 'carts'},
     permissions: [{ type: Schema.Types.ObjectId, ref: 'roles', index: true }],
     password: { type: Schema.Types.String,required: true },
-    loginDate: { type: Schema.Types.Date, required: true, default: undefined}
+    lastLogin: { type: Schema.Types.Date, default: undefined}
 });
 
 userSchema.plugin(mongoosePaginate);

@@ -2,14 +2,14 @@ import { Router } from 'express'
 import cartController, { addProduct, deleteOne, deleteProduct, getAll, getOne, updateQuantity } from '../../controllers/cartController.js'
 import auth from '../../middlewares/auth.js'
 import { create } from '../../controllers/ticketController.js';
-import { sendMailTicket } from '../../../shared/sendMailTicket.js';
+import authorization from '../../middlewares/authorization.js';
 
 const cartRouter = Router()
 
 // Create empty cart.
 cartRouter.post('/',auth, cartController.create);
 
-cartRouter.get('/',auth, getAll);
+cartRouter.get('/', auth, authorization(),  getAll);
 
 cartRouter.get('/:cid',auth, getOne);
 

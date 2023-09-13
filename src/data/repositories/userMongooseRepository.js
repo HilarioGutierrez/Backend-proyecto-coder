@@ -136,7 +136,7 @@ class userMongooseRepository {
                 cart:user.cart,
                 roles:user.roles,
                 isAdmin:user.isAdmin,
-                loginDate: user.loginDate
+                lastLogin: user.lastLogin
             })
             return userNew
             

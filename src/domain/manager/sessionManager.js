@@ -31,7 +31,7 @@ async login(userData){
     if(!isHashedPassword){
         return {message: 'error', error: 'Invalid credentials'};
     }
-    await manager.updateDate(email, {loginDate: new Date()})
+    await manager.updateDate(email, {lastLogin: new Date()})
     const accessToken = generateToken(user); // genera token de acceso JWT
     const data = { ...user, date: new Date().toDateString(), accessToken}
     return {message: 'success',data};

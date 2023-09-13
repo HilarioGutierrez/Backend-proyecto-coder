@@ -17,7 +17,7 @@ try {
     const currentDate = new Date();
     
     for (let i = 0; i < list.length; i++) {
-        const userDate = list[i].loginDate;
+        const userDate = list[i].lastLogin;
         const userId = list[i].id;
 
         const math = currentDate - userDate;

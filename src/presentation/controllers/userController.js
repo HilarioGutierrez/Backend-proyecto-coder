@@ -70,7 +70,7 @@ export const updateDate = async (req, res, next) => {
             res.status(404).send({message: 'User not found'});
             throw new Error('Missing fields');
         }
-        const result = await manager.updateOne(email, {loginDate: new Date()});
+        const result = await manager.updateOne(email, {lastLogin: new Date()});
         res.status(200).send({message: 'success', payload: result });
 
     } 
