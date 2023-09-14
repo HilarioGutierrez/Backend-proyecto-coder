@@ -13,7 +13,7 @@ try {
     }
     const list = manager.paginate(query)
 
-    const inactivityPeriod = 30;
+    const inactivityPeriod = 15;
     const currentDate = new Date();
     
     for (let i = 0; i < list.length; i++) {
