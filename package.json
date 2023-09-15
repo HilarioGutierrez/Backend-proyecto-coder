@@ -53,6 +53,7 @@
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
     "supertest": "^6.3.3"
   },
   "repository": "https://github.com/HilarioGutierrez/Backend-proyecto-coder.git"
