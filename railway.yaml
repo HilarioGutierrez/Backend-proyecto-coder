@@ -1,0 +1,4 @@
+services:
+  - name: my-app
+    env: production
+    command: npm start

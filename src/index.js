@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import appFactory from './presentation/factories/appFactory.js';
 import dbFactory from './data/factories/dbFactory.js';
 
-dotenv.config()
+dotenv.config();
 
 
 void (async () => 
