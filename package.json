@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "node src/index.js",
+    "dev": "nodemon",
     "command": "node src/command.js",
     "test": "mocha src/tests/*.test.js",
     "cluster": "pm2 start src/index.js -i 2"
