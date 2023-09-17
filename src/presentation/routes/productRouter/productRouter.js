@@ -5,10 +5,10 @@ import auth from "../../middlewares/auth.js"
 const productRouter = Router();
 
 //GET products from DB. Req.query limited the number of products to show
-productRouter.get('/',auth, find );
+productRouter.get('/', find );
 
 //GET products by ID from productManager
-productRouter.get('/:pid', auth, getOne );
+productRouter.get('/:pid', getOne );
 
 //PUT products at productManager
 productRouter.post('/', auth, authorization(), create );
